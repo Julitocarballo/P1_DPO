@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public final class Menu {
     public Menu() {
-        sc = new Scanner(System.in);
+
+        Scanner sc = new Scanner(System.in);
     }
 
 }
