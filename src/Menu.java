@@ -1,19 +1,20 @@
 import java.util.Scanner;
 
 public final class Menu {
+    private static final int MIN_MENU = 1;
+    private static final int MAX_MENU = 9;
     private Scanner sc;
-    private String opcio;
-    private int opcion;
+    private int opcio;
     public Menu() {
         sc = new Scanner(System.in);
-        opcio = "-";
+        opcio = -1;
     }
     public int getOpcio(){
-        return opcion;
+        return opcio;
     }
 
-    public void setOpcion(int opcionn) {
-        opcion = opcionn;
+    public void setOpcion(int opcio) {
+        this.opcio = opcio;
     }
 
     public void mostraMenu() {
@@ -32,53 +33,30 @@ public final class Menu {
     }
 
     public boolean demanaOpcio(){
-        System.out.println("Seleccioni una opcio:");
-        opcio = sc.nextLine();
-        int error=0;
-        switch(opcio){
-            case "1":
-               opcion = 1;
-               setOpcion(opcion);
-               break;
-            case "2":
-                opcion = 2;
-                setOpcion(opcion);
-                break;
-            case "3":
-                opcion = 3;
-                setOpcion(opcion);
-                break;
-            case "4":
-                opcion = 4;
-                setOpcion(opcion);
-                break;
-            case "5":
-                opcion = 5;
-                setOpcion(opcion);
-                break;
-            case "6":
-                opcion = 6;
-                setOpcion(opcion);
-                break;
-            case "7":
-                opcion = 7;
-                setOpcion(opcion);
-                break;
-            case "8":
-                opcion = 8;
-                setOpcion(opcion);
-                break;
-            case "9":
-                opcion = 9;
-                setOpcion(opcion);
-                break;
-            default:
-                error=1;
-                break;
-        }
-        return (error!=0)?false:true;
+        int opcio;
+        try {
 
+            System.out.print("Seleccioni una opcio: ");
+
+            opcio = sc.nextInt();
+
+            if (opcio >= MIN_MENU && opcio <= MAX_MENU) {
+
+                this.opcio = opcio;
+                return false;
+            }else{
+                System.out.println("Error, l'opció ha d'estar entre 1 i 9.");
+                System.out.println(" ");
+                return true;
+            }
+        }catch (java.util.InputMismatchException e){
+            System.out.println("Error, l'opció ha de ser un enter.");
+            System.out.println(" ");
+            sc.next();
+            return true;
+        }
     }
+
     public boolean continua () {
 
         if (getOpcio() != 9) {
