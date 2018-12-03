@@ -32,7 +32,7 @@ public final class Main {
 
                     menu.mostraMenu();
                 } while (menu.demanaOpcio());
-                /*S'executa l'opcio demanada anteriorment sob la inf*/
+                /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
                 info.execute(menu.getOpcio());
             } while (menu.continua());
 
