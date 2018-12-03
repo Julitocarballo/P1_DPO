@@ -18,7 +18,7 @@ public final class Main {
         JsonReader reader;
 
         try {
-            /*Careguem el fitxer series.json a partir de la llibreria gson*/
+            /*Careguem el fitxer series.json a partir de la llibrria gson*/
             reader = new JsonReader(new FileReader(pokemons));
             info = gson.fromJson(reader, ExtreuDades.class);
             reader = new JsonReader(new FileReader(pokeballs));
