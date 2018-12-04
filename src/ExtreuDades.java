@@ -1,6 +1,4 @@
 public class ExtreuDades {
-    private Pokemons[] pokemons;
-    private Pokeballs[] pokeballs;
 
     public void execute(int opcio) {
 

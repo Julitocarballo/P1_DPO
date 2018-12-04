@@ -6,27 +6,32 @@ import java.io.FileReader;
 
 public final class Main {
 
-    private static final String pokemons = "poke.json";
+    private static final String POKEMONS = "poke.json";
 
-    private static final String pokeballs = "balls.json";
+    private static final String POKEBALLS = "balls.json";
 
-    private static final String llegendari = "legends.json";
+    private static final String LLEGENDARI = "legends.json";
 
     public static void main(String[] args) {
-        ExtreuDades info = new ExtreuDades();
+        Pokemons[] info1 = new Pokemons();
+        Pokeballs[] info2 = new Pokeballs();
+        Legendary[] info3 = new Legendary();
+        Mythical[] info4 = new Mythical();
         Menu menu = new Menu();
         Gson gson = new Gson();
         JsonReader reader;
 
         try {
             /*Careguem el fitxer series.json a partir de la llibrria gson*/
-            reader = new JsonReader(new FileReader(pokemons));
-            info = gson.fromJson(reader, ExtreuDades.class);
+            reader = new JsonReader(new FileReader(POKEMONS));
+            info1 = gson.fromJson(reader, Pokemons.class);
             /*icoicn*/
-            reader = new JsonReader(new FileReader(pokeballs));
-            info = gson.fromJson(reader, ExtreuDades.class);
-            reader = new JsonReader(new FileReader(llegendari));
-            info = gson.fromJson(reader, ExtreuDades.class);
+            reader = new JsonReader(new FileReader(POKEBALLS));
+            info2 = gson.fromJson(reader, Pokeballs.class);
+            reader = new JsonReader(new FileReader(LLEGENDARI));
+            info3 = gson.fromJson(reader, Legendary.class);
+            reader = new JsonReader(new FileReader(LLEGENDARI));
+            info4 = gson.fromJson(reader, Mythical.class);
 
             do {
 

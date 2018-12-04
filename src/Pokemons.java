@@ -3,8 +3,10 @@ public class Pokemons {
     private String name;
     private int capture_rate;
 
-    public Pokemons(){
-
+    public Pokemons(int id, String name, int capture_rate) {
+        this.id = id;
+        this.name = name;
+        this.capture_rate = capture_rate;
     }
 
     public int getId() {
