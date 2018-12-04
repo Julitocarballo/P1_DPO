@@ -12,7 +12,7 @@ public final class Main {
 
     private static final String LLEGENDARI = "legends.json";
 
-    public static void main(String[] args) {
+    public static void main(String args[]) {
         Pokemons[] info1 = new Pokemons();
         Pokeballs[] info2 = new Pokeballs();
         Legendary[] info3 = new Legendary();

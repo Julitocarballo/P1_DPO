@@ -1,10 +1,12 @@
 import java.util.Scanner;
 
 public final class Menu {
+
     private static final int MIN_MENU = 1;
     private static final int MAX_MENU = 9;
     private Scanner sc;
     private int opcio;
+
     public Menu() {
         sc = new Scanner(System.in);
         opcio = -1;
