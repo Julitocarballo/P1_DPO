@@ -1,4 +1,4 @@
-public class Mythical extends Pokemons {
+public class Mythical extends Pokemon {
     private int id;
     private String kind;
     private Recerca special_research;

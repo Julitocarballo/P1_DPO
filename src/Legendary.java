@@ -1,4 +1,4 @@
-public class Legendary extends Pokemons {
+public class Legendary extends Pokemon {
     private int id;
     private String kind;
     private Gym gym;

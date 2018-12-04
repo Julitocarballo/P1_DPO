@@ -2,9 +2,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-/*
-
- */
 
 public final class Main {
 
@@ -16,27 +13,29 @@ public final class Main {
 
     public static void main(String args[]) {
 
-        Pokemons[] info1 = new Pokemons();
-        Pokeballs[] info2 = new Pokeballs();
-        Legendary[] info3 = new Legendary();
-        Mythical[] info4 = new Mythical();
+        User user = new User();
         Menu menu = new Menu();
         Gson gson = new Gson();
         JsonReader reader;
-
+        ExtreureDades extreuDades = new ExtreureDades();
 
 
         try {
             /*Careguem el fitxer series.json a partir de la llibrria gson*/
+            /*
             reader = new JsonReader(new FileReader(POKEMONS));
-            info1 = gson.fromJson(reader, Pokemons.class);
-            /*icoicn*/
+            Pokemon[] info1 = gson.fromJson(reader, Pokemon[].class);
+            */
             reader = new JsonReader(new FileReader(POKEBALLS));
-            info2 = gson.fromJson(reader, Pokeballs.class);
+            Pokeball[] info2 = gson.fromJson(reader, Pokeball[].class);
+            /*
             reader = new JsonReader(new FileReader(LLEGENDARI));
-            info3 = gson.fromJson(reader, Legendary.class);
+            Legendary[] info3 = gson.fromJson(reader, Legendary[].class);
+
             reader = new JsonReader(new FileReader(LLEGENDARI));
-            info4 = gson.fromJson(reader, Mythical.class);
+            Mythical[] info4 = gson.fromJson(reader, Mythical[].class);
+
+            */
 
             do {
 
@@ -45,12 +44,12 @@ public final class Main {
                     menu.mostraMenu();
                 } while (menu.demanaOpcio());
                 /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-                info.execute(menu.getOpcio());
+                extreuDades.execute(menu.getOpcio(), user);
             } while (menu.continua());
 
         } catch (FileNotFoundException e) {
 
-            System.err.println("No he pogut trobar el fitxer.");
+            System.out.println("No he pogut trobar el fitxer.");
         }
     }
 }

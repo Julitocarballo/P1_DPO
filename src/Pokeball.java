@@ -1,9 +1,9 @@
-public class Pokeballs {
+public class Pokeball {
     private String name;
     private int capture_rate;
     private int price;
 
-    public Pokeballs(){
+    public Pokeball(){
 
     }
 

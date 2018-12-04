@@ -1,9 +1,9 @@
-public class Pokemons {
+public class Pokemon {
     private int id;
     private String name;
     private int capture_rate;
 
-    public Pokemons() {
+    public Pokemon() {
 
     }
 
