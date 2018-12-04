@@ -2,7 +2,9 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+/*
 
+ */
 
 public final class Main {
 
@@ -12,21 +14,29 @@ public final class Main {
 
     private static final String LLEGENDARI = "legends.json";
 
-    public static void main(String[] args) {
-        ExtreureDades info= new ExtreureDades();
+    public static void main(String args[]) {
+
+        Pokemons[] info1 = new Pokemons();
+        Pokeballs[] info2 = new Pokeballs();
+        Legendary[] info3 = new Legendary();
+        Mythical[] info4 = new Mythical();
         Menu menu = new Menu();
         Gson gson = new Gson();
         JsonReader reader;
 
-        /*JSONArray jsonarray = new JSONArray(jsonStr);
-        for (int i = 0; i < jsonarray.length(); i++) {
-            JSONObject jsonobject = jsonarray.getJSONObject(i);
-            String name= jsonobject.getString("name");
-            String url = jsonobject.getString("url");
-        }*/
+
 
         try {
             /*Careguem el fitxer series.json a partir de la llibrria gson*/
+            reader = new JsonReader(new FileReader(POKEMONS));
+            info1 = gson.fromJson(reader, Pokemons.class);
+            /*icoicn*/
+            reader = new JsonReader(new FileReader(POKEBALLS));
+            info2 = gson.fromJson(reader, Pokeballs.class);
+            reader = new JsonReader(new FileReader(LLEGENDARI));
+            info3 = gson.fromJson(reader, Legendary.class);
+            reader = new JsonReader(new FileReader(LLEGENDARI));
+            info4 = gson.fromJson(reader, Mythical.class);
 
             do {
 
