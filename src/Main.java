@@ -1,7 +1,11 @@
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+
 
 public final class Main {
 
@@ -21,35 +25,41 @@ public final class Main {
 
 
         try {
+            JsonReader pkmnReader = new JsonReader(new FileReader(POKEMONS));
+            JsonReader legendsReader = new JsonReader(new FileReader(LLEGENDARI));
+            JsonParser legendsParser = new JsonParser();
+
+            JsonArray legends = legendsParser.parse(legendsReader).getAsJsonArray();
+
+            Pokemon pokemons[] = gson.fromJson(pkmnReader, Pokemon[].class);
+
+            int id = legends.get(0).getAsJsonObject().get("id").getAsInt();
+            String kind = legends.get(0).getAsJsonObject().get("kind").getAsString();
+
+            if (kind.equals("legendary")) {
+                Legendary aux = (Legendary) pokemons[id - 1];
+                //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
+                pokemons[id - 1] = aux;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+        int error=0;
             /*Careguem el fitxer series.json a partir de la llibrria gson*/
-            /*
-            reader = new JsonReader(new FileReader(POKEMONS));
-            Pokemon[] info1 = gson.fromJson(reader, Pokemon[].class);
-            */
-            reader = new JsonReader(new FileReader(POKEBALLS));
-            Pokeball[] info2 = gson.fromJson(reader, Pokeball[].class);
-            /*
-            reader = new JsonReader(new FileReader(LLEGENDARI));
-            Legendary[] info3 = gson.fromJson(reader, Legendary[].class);
 
-            reader = new JsonReader(new FileReader(LLEGENDARI));
-            Mythical[] info4 = gson.fromJson(reader, Mythical[].class);
-
-            */
+        do {
 
             do {
 
-                do {
+                menu.mostraMenu();
+            } while (menu.demanaOpcio());
+            /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
+            extreuDades.execute(menu.getOpcio(), user);
+            /*info.execute(menu.getOpcio());*/
+        } while (menu.continua());
 
-                    menu.mostraMenu();
-                } while (menu.demanaOpcio());
-                /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-                extreuDades.execute(menu.getOpcio(), user);
-            } while (menu.continua());
-
-        } catch (FileNotFoundException e) {
-
-            System.out.println("No he pogut trobar el fitxer.");
-        }
     }
 }
