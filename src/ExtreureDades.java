@@ -1,5 +1,6 @@
-public class ExtreuDades {
-
+public class ExtreureDades {
+    public ExtreureDades() {
+    }
     public void execute(int opcio) {
 
         switch (opcio) {

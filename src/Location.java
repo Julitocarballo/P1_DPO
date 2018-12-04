@@ -13,4 +13,3 @@ public class Location {
         return latitude;
     }
 }
-

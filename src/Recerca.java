@@ -6,4 +6,3 @@ public class Recerca {
         Missio quests = new Missio();
     }
 }
-
