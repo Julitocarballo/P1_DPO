@@ -16,22 +16,24 @@ public final class Main {
     private static final String LLEGENDARI = "legends.json";
 
     public static void main(String args[]) {
-
+        LlegirJson json = new LlegirJson();
         User user = new User();
         Menu menu = new Menu();
-        Gson gson = new Gson();
+
         JsonReader reader;
         ExtreureDades extreuDades = new ExtreureDades();
 
 
         try {
-            JsonReader pkmnReader = new JsonReader(new FileReader(POKEMONS));
+            JsonReader pkbllReader = new JsonReader(new FileReader(POKEBALLS));
+            Pokemon pokemons[] = json.extreurePokemon(POKEBALLS);
             JsonReader legendsReader = new JsonReader(new FileReader(LLEGENDARI));
             JsonParser legendsParser = new JsonParser();
 
             JsonArray legends = legendsParser.parse(legendsReader).getAsJsonArray();
 
-            Pokemon pokemons[] = gson.fromJson(pkmnReader, Pokemon[].class);
+
+            Pokeball pokeballs[] = gson.fromJson(pkbllReader, Pokeball[].class);
 
             int id = legends.get(0).getAsJsonObject().get("id").getAsInt();
             String kind = legends.get(0).getAsJsonObject().get("kind").getAsString();
