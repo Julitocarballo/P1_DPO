@@ -1,6 +1,7 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
@@ -19,6 +20,7 @@ public final class Main {
         LlegirJson json = new LlegirJson();
         User user = new User();
         Menu menu = new Menu();
+        Gym gym = new Gym();
 
         JsonReader reader;
         ExtreureDades extreuDades = new ExtreureDades();
@@ -29,12 +31,19 @@ public final class Main {
         Pokemon pokemons[] = json.extreurePokemon();
         JsonArray jsonllegenmitics=json.extreureArray();
         for(int i=0; i< jsonllegenmitics.size(); i++){
-            int id= json.extreureid(jsonllegenmitics, i);
+            int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
+
             if (kind){
-                Legendary llegendari[k]= json.extreureLlegendari(jsonllegenmitics, i);
+                Legendary aux = (Legendary) pokemons[id - 1];
+                JsonElement jelement = new JsonParser().parse(LLEGENDARI);
+                JsonObject  jobject = jelement.getAsJsonObject();
+                jobject = jobject.getAsJsonObject("gym");
+                aux.gym.setName(jobject.get("name").getAsString());
+                //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
+                //pokemons[id]
             }else{
-                Mythical mitic[z]= json.extreureMitic(jsonllegenmitics, i);
+                Mythical mitic[z] = json.extreureMitic(jsonllegenmitics, i);
             }
         }
 
