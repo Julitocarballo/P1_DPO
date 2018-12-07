@@ -24,33 +24,26 @@ public final class Main {
         ExtreureDades extreuDades = new ExtreureDades();
 
 
-        try {
-            JsonReader pkbllReader = new JsonReader(new FileReader(POKEBALLS));
-            Pokemon pokemons[] = json.extreurePokemon(POKEBALLS);
-            JsonReader legendsReader = new JsonReader(new FileReader(LLEGENDARI));
-            JsonParser legendsParser = new JsonParser();
-
-            JsonArray legends = legendsParser.parse(legendsReader).getAsJsonArray();
-
-
-            Pokeball pokeballs[] = gson.fromJson(pkbllReader, Pokeball[].class);
-
-            int id = legends.get(0).getAsJsonObject().get("id").getAsInt();
-            String kind = legends.get(0).getAsJsonObject().get("kind").getAsString();
-
-            if (kind.equals("legendary")) {
-                Legendary aux = (Legendary) pokemons[id - 1];
-                //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
-                pokemons[id - 1] = aux;
+        int z=0, k=0;
+        Pokeball pokeballs[] = json.extreurePokeball();
+        Pokemon pokemons[] = json.extreurePokemon();
+        JsonArray jsonllegenmitics=json.extreureArray();
+        for(int i=0; i< jsonllegenmitics.size(); i++){
+            int id= json.extreureid(jsonllegenmitics, i);
+            boolean kind = json.llegendariMitic(jsonllegenmitics, i);
+            if (kind){
+                Legendary llegendari[k]= json.extreureLlegendari(jsonllegenmitics, i);
+            }else{
+                Mythical mitic[z]= json.extreureMitic(jsonllegenmitics, i);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
 
 
+        Legendary aux = (Legendary) pokemons[id - 1];
+        //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
+        pokemons[id - 1] = aux;
+        //comprovem Null
 
-        int error=0;
-            /*Careguem el fitxer series.json a partir de la llibrria gson*/
 
         do {
 
