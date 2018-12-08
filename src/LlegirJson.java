@@ -28,7 +28,7 @@ public class LlegirJson {
             JsonReader pkmnReader = new JsonReader(new FileReader(POKEMONS));
             Pokemon pokemons[] = gson.fromJson(pkmnReader, Pokemon[].class);
             return pokemons;
-        } catch (FileNotFoundException e) {
+        }catch(FileNotFoundException e){
             e.printStackTrace();
             return null;
         }

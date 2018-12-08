@@ -67,4 +67,17 @@ public final class Menu {
         return false;
     }
 
+    public void mostraMenu2(){
+
+        System.out.println("Pokéballs disponibles:");
+        System.out.println("    a) Pokéball:    " + LlegirJson.getPokeball()[0].getPrice + " monedes");
+        System.out.println("    b) Superball:   " + LlegirJson.getPokeball()[1].getPrice + " monedes");
+        System.out.println("    c) Ultraball:   " + LlegirJson.getPokeball()[2].getPrice + " monedes");
+        System.out.println("    d) Masterball:  " + LlegirJson.getPokeball()[3].getPrice + " monedes");
+        System.out.println(" ");
+        System.out.println("    e) Sortir sense comprar");
+        System.out.println(" ");
+        System.out.println("Esculli una opció:");
+    }
+
 }

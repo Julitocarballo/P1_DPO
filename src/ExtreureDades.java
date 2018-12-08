@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class ExtreureDades {
+    private Menu menu;
+    private LlegirJson llegirjson;
+
     private Scanner sc;
     public ExtreureDades() {
         sc = new Scanner(System.in);
@@ -16,17 +19,17 @@ public class ExtreureDades {
 
             case 2:
 
-                //opcio2();
+                opcio2(menu, user);
                 break;
 
             case 3:
 
-                //opcio3();
+                opcio3(user);
                 break;
 
             case 4:
 
-                //opcio4();
+                opcio4(user);
                 break;
 
             case 5:
@@ -78,7 +81,7 @@ public class ExtreureDades {
         System.out.println(" ");
 
         if (confirmar.equalsIgnoreCase("y")) {
-            user.setMonedes(buycoins);
+            user.setsumarMonedes(buycoins);
             System.out.println(" ");
             System.out.println("S'han afegit " + buycoins + " monedes al seu compte.");
         } else {
@@ -89,5 +92,102 @@ public class ExtreureDades {
 
         }
     }
+
+    public void opcio2(Menu menu, User user) {
+        String op;
+        int unitats;
+        boolean error = false;
+
+        System.out.println("Teniu " + user.getMonedes() + " monedes.");
+        menu.mostraMenu2();
+        op = sc.next();
+
+        if(op.equalsIgnoreCase("a") || op.equalsIgnoreCase("b") || op.equalsIgnoreCase("c") || op.equalsIgnoreCase("d") ){
+
+            System.out.println("Quantes unitats en vol comprar?");
+            unitats = sc.nextInt();
+            System.out.println(" ");
+            if(unitats < 0){
+                System.out.println("Error, el nombre d'unitats no pot ser negatiu!");
+                System.out.println(" ");
+            }else{
+                switch (op) {
+
+                    case 'a':
+                        error = actualitzaInventari(unitats, 0, user);
+                        break;
+
+                    case 'b':
+                        error = actualitzaInventari(unitats, 1, user);
+                        break;
+
+                    case 'c':
+                        error = actualitzaInventari(unitats, 2, user);
+                        break;
+
+                    case 'd':
+                        error = actualitzaInventari(unitats, 3, user);
+                        break;
+                }
+                if(error){
+                    System.out.println("Ho sentim, però no disposa de suficients monedes");
+                    System.out.println(" ");
+                }
+            }
+        }else{
+            if(op.equalsIgnoreCase("e")){
+                System.out.println("Sortint de l'opció 2");
+                System.out.println(" ");
+            }else{
+                System.out.println("Error, aquesta opció no existeix");
+                System.out.println(" ");
+            }
+        }
+
+    }
+    public boolean actualitzaInventari(int unitats, int i, User user){
+        boolean error;
+        if (unitats * llegirjson.getPokeball()[i].price > user) {
+            error = true;
+        }else{
+            user.setrestarMonedes(unitats * llegirjson.getPokeball()[i].price);
+            user.setcomprarInventari(unitats, i);
+            System.out.println("S'han afegit " + unitats + llegirjson.getPokeball()[i].getName() + " al seu compte a canvi de " + unitats * llegirjson.getPokeball()[i].price + " monedes.");
+            System.out.println(" ");
+            error = false;
+        }
+        return error;
+    }
+
+    public void opcio3(User user){
+        //dubte amb printar el nom de la pokeball ja que no és clavat al enunciat (majúscules, accents..) diferent al json
+        System.out.println("Inventari: ");
+        for(int i = 0; i < user.getInventari().length; i++){
+            if(user.getInventari()[i] != 0){
+                System.out.println("    - " + user.getInventari()[i] + "x " + llegirjson.getPokeball()[i].getName());
+            }
+        }
+
+    }
+
+    public void opcio4(User user){
+      if(!pokemonDisponible(user)){
+
+          System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
+          System.out.println(" ");
+      }else{
+          System.out.println("Quin Pokémon vol buscar?");
+      }
+    }
+    public boolean pokemonDisponible(User user) {
+        boolean pokdisp = false;
+        for (int i = 0; i < user.getInventari().length && !pokdisp; i++) {
+            if (user.getInventari()[i] != 0){
+                pokdisp = true;
+            }
+        }
+        return pokdisp;
+    }
+
 
 }
