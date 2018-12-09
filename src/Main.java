@@ -33,24 +33,22 @@ public final class Main {
         for(int i=0; i< jsonllegenmitics.size(); i++){
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
-
             if (kind){
                 Legendary aux = (Legendary) pokemons[id - 1];
-                JsonElement jelement = new JsonParser().parse(LLEGENDARI);
-                JsonObject  jobject = jelement.getAsJsonObject();
-                jobject = jobject.getAsJsonObject("gym");
-                aux.gym.setName(jobject.get("name").getAsString());
+                aux = json.extreureLlegendari(aux,id, jsonllegenmitics, i);
                 //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
                 //pokemons[id]
             }else{
-                Mythical mitic[z] = json.extreureMitic(jsonllegenmitics, i);
+                Mythical mit = (Mythical) pokemons[id -1];
+                mit = json.extreureMitic(mit,id, jsonllegenmitics, i);
+
             }
         }
 
 
-        Legendary aux = (Legendary) pokemons[id - 1];
+        //Legendary aux = (Legendary) pokemons[id - 1];
         //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
-        pokemons[id - 1] = aux;
+        //pokemons[id - 1] = aux;
         //comprovem Null
 
 

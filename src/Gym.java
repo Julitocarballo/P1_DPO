@@ -1,9 +1,8 @@
 public class Gym {
     private String name;
-    private Location location;
-
+    Location location = new Location();
     public Gym() {
-        Location location = new Location();
+
     }
 
     public String getName() {

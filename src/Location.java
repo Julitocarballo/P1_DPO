@@ -12,4 +12,12 @@ public class Location {
     public float getLatitude() {
         return latitude;
     }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
 }

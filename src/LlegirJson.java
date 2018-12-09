@@ -1,8 +1,6 @@
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.Gson;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -66,8 +64,32 @@ public class LlegirJson {
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         return (kind.equals("legendary"))? true : false;
     }
-    public Legendary extreureLlegendari(JsonArray llegenmitics, int i){
+    public Legendary extreureLlegendari(Legendary aux,int id,JsonArray llegenmitics, int i){
+        aux.setId(id);
+        aux.setKind(llegenmitics.get(i).getAsJsonObject().get("kind").getAsString());
+        JsonElement jelement = new JsonParser().parse(LLEGENDARI);
+        JsonObject jobject = jelement.getAsJsonObject();
+        jobject = jobject.getAsJsonObject("gym");
+        aux.gym.setName(jobject.get("name").getAsString());
+        aux.gym.location.setLongitude(jobject.get("longitude").getAsFloat());
+        aux.gym.location.setLatitude(jobject.get("latitude").getAsFloat());
+        return aux;
+    }
+    public Mythical extreureMitic(Mythical mit,int id,JsonArray llegenmitics, int i){
+        mit.setId(id);
+        mit.setKind(llegenmitics.get(i).getAsJsonObject().get("kind").getAsString());
+        JsonElement jelement = new JsonParser().parse(LLEGENDARI);
+        JsonObject jobject = jelement.getAsJsonObject();
+        jobject = jobject.getAsJsonObject("special_research");
+        mit.special_research.setName(jobject.get("name").getAsString());
+        JsonArray arr = jobject.getAsJsonArray("quests");
+        for(int j=0;j<arr.size();j++){
+            mit.special_research.quests.setTarget(jobject.get("target").getAsInt());
+            mit.special_research.quests.setQuantity(jobject.get("quantity").getAsInt());
 
+        }
+
+        return mit;
     }
 
 }
