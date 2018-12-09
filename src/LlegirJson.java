@@ -7,11 +7,11 @@ import java.io.FileReader;
 
 public class LlegirJson {
 
-    private static final String POKEMONS = "poke.json";
+    private String POKEMONS = "poke.json";
 
-    private static final String POKEBALLS = "balls.json";
+    private String POKEBALLS = "balls.json";
 
-    private static final String LLEGENDARI = "legends.json";
+    private String LLEGENDARI = "legends.json";
 
     Gson gson = new Gson();
     JsonReader reader;
@@ -33,7 +33,7 @@ public class LlegirJson {
         }
     }
 
-    public Pokeball[] extreurePokeball() {
+    public Pokeball[] getPokeball() {
 
         try {
             JsonReader pkbllReader = new JsonReader(new FileReader(POKEBALLS));

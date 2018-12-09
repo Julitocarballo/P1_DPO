@@ -147,10 +147,10 @@ public class ExtreureDades {
     }
     public boolean actualitzaInventari(int unitats, int i, User user){
         boolean error;
-        if (unitats * llegirjson.getPokeball()[i].price > user) {
+        if (unitats * llegirjson.getPokeball()[i].getPrice() > user.getMonedes()) {
             error = true;
         }else{
-            user.setrestarMonedes(unitats * llegirjson.getPokeball()[i].price);
+            user.setrestarMonedes(unitats * llegirjson.getPokeball()[i].getPrice());
             user.setcomprarInventari(unitats, i);
             System.out.println("S'han afegit " + unitats + llegirjson.getPokeball()[i].getName() + " al seu compte a canvi de " + unitats * llegirjson.getPokeball()[i].price + " monedes.");
             System.out.println(" ");

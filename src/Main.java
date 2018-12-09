@@ -30,7 +30,7 @@ public final class Main {
 
 
         int z = 0, k = 0;
-        pokeballs = json.extreurePokeball();
+        pokeballs = json.getPokeball();
         pokemons = json.extreurePokemon();
         JsonArray jsonllegenmitics = json.extreureArray();
         for (int i = 0; i < jsonllegenmitics.size(); i++) {
