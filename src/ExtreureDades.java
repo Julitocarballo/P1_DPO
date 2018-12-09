@@ -95,6 +95,7 @@ public class ExtreureDades {
 
     public void opcio2(Menu menu, User user) {
         String op;
+        char opcio;
         int unitats;
         boolean error = false;
 
@@ -111,7 +112,8 @@ public class ExtreureDades {
                 System.out.println("Error, el nombre d'unitats no pot ser negatiu!");
                 System.out.println(" ");
             }else{
-                switch (op) {
+                opcio = op.charAt(0);
+                switch (opcio) {
 
                     case 'a':
                         error = actualitzaInventari(unitats, 0, user);
