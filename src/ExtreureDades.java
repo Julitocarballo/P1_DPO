@@ -152,7 +152,7 @@ public class ExtreureDades {
         }else{
             user.setrestarMonedes(unitats * llegirjson.getPokeball()[i].getPrice());
             user.setcomprarInventari(unitats, i);
-            System.out.println("S'han afegit " + unitats + llegirjson.getPokeball()[i].getName() + " al seu compte a canvi de " + unitats * llegirjson.getPokeball()[i].price + " monedes.");
+            System.out.println("S'han afegit " + unitats + llegirjson.getPokeball()[i].getName() + " al seu compte a canvi de " + unitats * llegirjson.getPokeball()[i].getPrice() + " monedes.");
             System.out.println(" ");
             error = false;
         }
