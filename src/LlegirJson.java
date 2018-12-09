@@ -16,7 +16,6 @@ public class LlegirJson {
     Gson gson = new Gson();
     JsonReader reader;
 
-
     public LlegirJson() {
 
     }

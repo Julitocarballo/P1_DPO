@@ -4,10 +4,12 @@ public class ExtreureDades {
     private Menu menu;
     private LlegirJson llegirjson;
 
+
     private Scanner sc;
     public ExtreureDades() {
         sc = new Scanner(System.in);
     }
+
     public void execute(int opcio, User user) {
 
         switch (opcio) {
@@ -100,7 +102,7 @@ public class ExtreureDades {
         boolean error = false;
 
         System.out.println("Teniu " + user.getMonedes() + " monedes.");
-        menu.mostraMenu2();
+        menu.mostraMenu2(llegirjson);
         op = sc.next();
 
         if(op.equalsIgnoreCase("a") || op.equalsIgnoreCase("b") || op.equalsIgnoreCase("c") || op.equalsIgnoreCase("d") ){
