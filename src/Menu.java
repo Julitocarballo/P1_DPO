@@ -6,7 +6,7 @@ public final class Menu {
     private static final int MAX_MENU = 9;
     private Scanner sc;
     private int opcio;
-    LlegirJson llegirJson;
+    private LlegirJson llegirJson;
 
     public Menu() {
         sc = new Scanner(System.in);
