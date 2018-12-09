@@ -102,7 +102,7 @@ public class ExtreureDades {
         boolean error = false;
 
         System.out.println("Teniu " + user.getMonedes() + " monedes.");
-        menu.mostraMenu2(llegirjson);
+        menu.mostraMenu2();
         op = sc.next();
 
         if(op.equalsIgnoreCase("a") || op.equalsIgnoreCase("b") || op.equalsIgnoreCase("c") || op.equalsIgnoreCase("d") ){
