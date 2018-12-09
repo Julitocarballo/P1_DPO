@@ -16,6 +16,7 @@ public class LlegirJson {
     Gson gson = new Gson();
     JsonReader reader;
 
+
     public LlegirJson() {
 
     }
@@ -84,9 +85,8 @@ public class LlegirJson {
         mit.special_research.setName(jobject.get("name").getAsString());
         JsonArray arr = jobject.getAsJsonArray("quests");
         for(int j=0;j<arr.size();j++){
-            mit.special_research.quests.setTarget(jobject.get("target").getAsInt());
-            mit.special_research.quests.setQuantity(jobject.get("quantity").getAsInt());
-
+            mit.special_research.getQuests()[j].setTarget(jobject.get("target").getAsInt());
+            mit.special_research.getQuests()[j].setQuantity(jobject.get("quantity").getAsInt());
         }
 
         return mit;

@@ -1,6 +1,6 @@
 public class Recerca {
     private String name;
-    Missio quests = new Missio();
+    private Missio[] quests;
 
     public Recerca() {
 
@@ -14,11 +14,11 @@ public class Recerca {
         this.name = name;
     }
 
-    public Missio getQuests() {
+    public Missio[] getQuests() {
         return quests;
     }
 
-    public void setQuests(Missio quests) {
+    public void setQuests(Missio[] quests) {
         this.quests = quests;
     }
 }

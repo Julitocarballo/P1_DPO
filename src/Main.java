@@ -16,52 +16,58 @@ public final class Main {
 
     private static final String LLEGENDARI = "legends.json";
 
+
+
     public static void main(String args[]) {
         LlegirJson json = new LlegirJson();
         User user = new User();
         Menu menu = new Menu();
         Gym gym = new Gym();
-
+        Pokeball[] pokeballs;
+        Pokemon[] pokemons;
         JsonReader reader;
         ExtreureDades extreuDades = new ExtreureDades();
 
 
-        int z=0, k=0;
-        Pokeball pokeballs[] = json.extreurePokeball();
-        Pokemon pokemons[] = json.extreurePokemon();
-        JsonArray jsonllegenmitics=json.extreureArray();
-        for(int i=0; i< jsonllegenmitics.size(); i++){
+        int z = 0, k = 0;
+        pokeballs = json.extreurePokeball();
+        pokemons = json.extreurePokemon();
+        JsonArray jsonllegenmitics = json.extreureArray();
+        for (int i = 0; i < jsonllegenmitics.size(); i++) {
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
-            if (kind){
-                Legendary aux = (Legendary) pokemons[id - 1];
-                aux = json.extreureLlegendari(aux,id, jsonllegenmitics, i);
+            if (kind) {
+                Legendary aux = pokemons[id - 1].legendary;
+                aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
                 //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
                 //pokemons[id]
-            }else{
-                Mythical mit = (Mythical) pokemons[id -1];
-                mit = json.extreureMitic(mit,id, jsonllegenmitics, i);
+            } else {
+                Mythical mit = pokemons[id - 1].mythical;
+                mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
 
             }
         }
+        if (pokeballs == null || pokemons == null || jsonllegenmitics == null) {
+            System.out.println("Error al llegir algun dels fitxers");
+        } else {
 
+            //Legendary aux = (Legendary) pokemons[id - 1];
+            //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
+            //pokemons[id - 1] = aux;
+            //comprovem Null
 
-        //Legendary aux = (Legendary) pokemons[id - 1];
-        //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
-        //pokemons[id - 1] = aux;
-        //comprovem Null
-
-
-        do {
 
             do {
 
-                menu.mostraMenu();
-            } while (menu.demanaOpcio());
-            /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-            extreuDades.execute(menu.getOpcio(), user);
-            /*info.execute(menu.getOpcio());*/
-        } while (menu.continua());
+                do {
 
+                    menu.mostraMenu();
+                } while (menu.demanaOpcio());
+                /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
+                extreuDades.execute(menu.getOpcio(), user);
+                /*info.execute(menu.getOpcio());*/
+            } while (menu.continua());
+
+        }
     }
 }
