@@ -4,7 +4,6 @@ public class ExtreureDades {
     private Menu menu;
     private LlegirJson llegirjson;
 
-
     private Scanner sc;
     public ExtreureDades() {
         sc = new Scanner(System.in);
