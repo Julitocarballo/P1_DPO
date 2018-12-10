@@ -1,7 +1,7 @@
 public class Legendary extends Pokemon {
     private int id;
     private String kind;
-    Gym gym = new Gym();
+    private Gym gym;
 
     public Legendary() {
 

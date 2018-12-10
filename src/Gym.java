@@ -1,6 +1,6 @@
 public class Gym {
     private String name;
-    Location location = new Location();
+    private Location location;
     public Gym() {
 
     }

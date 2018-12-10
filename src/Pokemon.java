@@ -2,8 +2,8 @@ public class Pokemon {
     private int id;
     private String name;
     private int capture_rate;
-    Legendary legendary = new Legendary();
-    Mythical mythical = new Mythical();
+    private Legendary legendary;
+    private Mythical mythical;
 
     public Pokemon() {
 
@@ -19,5 +19,33 @@ public class Pokemon {
 
     public int getCapture_rate() {
         return capture_rate;
+    }
+
+    public Legendary getLegendary() {
+        return legendary;
+    }
+
+    public Mythical getMythical() {
+        return mythical;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCapture_rate(int capture_rate) {
+        this.capture_rate = capture_rate;
+    }
+
+    public void setLegendary(Legendary legendary) {
+        this.legendary = legendary;
+    }
+
+    public void setMythical(Mythical mythical) {
+        this.mythical = mythical;
     }
 }

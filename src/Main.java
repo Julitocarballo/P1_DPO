@@ -22,7 +22,6 @@ public final class Main {
         LlegirJson json = new LlegirJson();
         User user = new User();
         Menu menu = new Menu();
-        Gym gym = new Gym();
         Pokeball[] pokeballs;
         Pokemon[] pokemons;
         JsonReader reader;
@@ -37,12 +36,12 @@ public final class Main {
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
             if (kind) {
-                Legendary aux = pokemons[id - 1].legendary;
+                Legendary aux = pokemons[i].legendary;
                 aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
                 //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
                 //pokemons[id]
             } else {
-                Mythical mit = pokemons[id - 1].mythical;
+                Mythical mit[i] = pokemons[i].mythical;
                 mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
 
             }

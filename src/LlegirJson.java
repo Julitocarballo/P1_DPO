@@ -3,6 +3,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 
 public class LlegirJson {
@@ -13,11 +14,11 @@ public class LlegirJson {
 
     private String LLEGENDARI = "legends.json";
 
+
     Gson gson = new Gson();
     JsonReader reader;
 
     public LlegirJson() {
-
     }
 
     public Pokemon[] extreurePokemon() {
@@ -70,9 +71,9 @@ public class LlegirJson {
         JsonElement jelement = new JsonParser().parse(LLEGENDARI);
         JsonObject jobject = jelement.getAsJsonObject();
         jobject = jobject.getAsJsonObject("gym");
-        aux.gym.setName(jobject.get("name").getAsString());
-        aux.gym.location.setLongitude(jobject.get("longitude").getAsFloat());
-        aux.gym.location.setLatitude(jobject.get("latitude").getAsFloat());
+        aux.getGym().setName(jobject.get("name").getAsString());
+        aux.getGym().getLocation().setLongitude(jobject.get("longitude").getAsFloat());
+        aux.getGym().getLocation().setLatitude(jobject.get("latitude").getAsFloat());
         return aux;
     }
     public Mythical extreureMitic(Mythical mit,int id,JsonArray llegenmitics, int i){
@@ -81,11 +82,11 @@ public class LlegirJson {
         JsonElement jelement = new JsonParser().parse(LLEGENDARI);
         JsonObject jobject = jelement.getAsJsonObject();
         jobject = jobject.getAsJsonObject("special_research");
-        mit.special_research.setName(jobject.get("name").getAsString());
+        mit.getSpecial_research().setName(jobject.get("name").getAsString());
         JsonArray arr = jobject.getAsJsonArray("quests");
         for(int j=0;j<arr.size();j++){
-            mit.special_research.getQuests()[j].setTarget(jobject.get("target").getAsInt());
-            mit.special_research.getQuests()[j].setQuantity(jobject.get("quantity").getAsInt());
+            mit.getSpecial_research().getQuests()[j].setTarget(jobject.get("target").getAsInt());
+            mit.getSpecial_research().getQuests()[j].setQuantity(jobject.get("quantity").getAsInt());
         }
 
         return mit;

@@ -1,7 +1,7 @@
 public class Mythical extends Pokemon {
     private int id;
     private String kind;
-    Recerca special_research = new Recerca();
+    private Recerca special_research;
 
     public Mythical() {
 
