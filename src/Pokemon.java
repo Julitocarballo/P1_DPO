@@ -5,8 +5,12 @@ public class Pokemon {
     private Legendary legendary;
     private Mythical mythical;
 
-    public Pokemon() {
-
+    public Pokemon(int id, String name, int capture_rate, Legendary legendary, Mythical mythical) {
+        this.id = id;
+        this.name = name;
+        this.capture_rate = capture_rate;
+        this.legendary = legendary;
+        this.mythical = mythical;
     }
 
     public int getId() {

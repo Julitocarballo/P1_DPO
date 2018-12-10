@@ -3,8 +3,11 @@ public class Mythical extends Pokemon {
     private String kind;
     private Recerca special_research;
 
-    public Mythical() {
-
+    public Mythical(int id, String name, int capture_rate, Legendary legendary, Mythical mythical, int id1, String kind, Recerca special_research) {
+        super(id, name, capture_rate, legendary, mythical);
+        this.id = id1;
+        this.kind = kind;
+        this.special_research = special_research;
     }
 
     public int getId() {

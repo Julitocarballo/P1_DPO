@@ -2,8 +2,9 @@ public class Recerca {
     private String name;
     private Missio[] quests;
 
-    public Recerca() {
-
+    public Recerca(String name, Missio[] quests) {
+        this.name = name;
+        this.quests = quests;
     }
 
     public String getName() {

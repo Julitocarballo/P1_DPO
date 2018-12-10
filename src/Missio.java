@@ -2,8 +2,9 @@ public class Missio {
     private int target;
     private int quantity;
 
-    public Missio(){
-
+    public Missio(int target, int quantity) {
+        this.target = target;
+        this.quantity = quantity;
     }
 
     public int getTarget() {
