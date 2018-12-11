@@ -57,6 +57,8 @@ public class LlegirJson {
         }
 
     }
+
+
     public int extreureid(JsonArray llegenmitics, int i){
         int id = llegenmitics.get(i).getAsJsonObject().get("id").getAsInt();
         return id;
@@ -65,7 +67,30 @@ public class LlegirJson {
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         return (kind.equals("legendary"))? true : false;
     }
-    /*public Legendary extreureLlegendari(Legendary aux,int id,JsonArray llegenmitics, int i){
+
+    public Legendary getLlegendari(int i, JsonArray llegenmitics){
+        int id = extreureid(llegenmitics, i);
+
+        String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
+        JsonObject gym = llegenmitics.get(i).getAsJsonObject().get("gym").getAsJsonObject();
+        JsonObject locationn =  gym.get("location").getAsJsonObject();
+
+        Location location = new Location(locationn.get("latitude").getAsFloat(), locationn.get("longitude").getAsFloat());
+        Gym g = new Gym (gym.get("name").getAsString(), location);
+        Legendary legend = new Legendary(id,, g, kind);
+        return legend;
+    }
+    public Mythical getMitic(int i, JsonArray llegenmitics){
+        int id = extreureid(llegenmitics, i);
+        String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
+        JsonObject special_research = llegenmitics.get(i).getAsJsonObject().get("special_research").getAsJsonObject();
+
+        Recerca sr = new Recerca (special_research.get("name").getAsString(), special_research.get("quests").getAsJsonArray());
+        Mythical mitic = new Mythical(id, kind, sr);
+        return mitic;
+    }
+
+   /* public Legendary extreureLlegendari(Legendary aux,int id,JsonArray llegenmitics, int i){
         aux.setId(id);
         aux.setKind(llegenmitics.get(i).getAsJsonObject().get("kind").getAsString());
         JsonElement jelement = new JsonParser().parse(LLEGENDARI);

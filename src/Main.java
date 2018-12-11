@@ -22,31 +22,30 @@ public final class Main {
         LlegirJson json = new LlegirJson();
         User user = new User();
         Menu menu = new Menu();
-        Pokeball[] pokeballs;
-        Pokemon[] pokemons;
         JsonReader reader;
         ExtreureDades extreuDades = new ExtreureDades();
 
 
         int z = 0;
-        pokeballs = json.getPokeball();
-        pokemons = json.extreurePokemon();
+        extreuDades.setPokemons();
         JsonArray jsonllegenmitics = json.extreureArray();
         for (int i = 0; i < jsonllegenmitics.size(); i++) {
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
             if (kind) {
+                extreuDades.afegirLlegendari();
                 //Legendary aux = pokemons[i].legendary;
                 //aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
                 //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
                 //pokemons[id]
             } else {
+                extreuDades.afegirMitic();
                 //Mythical mit[i] = pokemons[i].mythical;
                 //9mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
 
             }
         }
-        if (pokeballs == null || pokemons == null || jsonllegenmitics == null) {
+        /*if (pokeballs == null || pokemons == null || jsonllegenmitics == null) {
             System.out.println("Error al llegir algun dels fitxers");
         } else {
 
@@ -65,8 +64,8 @@ public final class Main {
                 /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
                 extreuDades.execute(menu.getOpcio(), user);
                 /*info.execute(menu.getOpcio());*/
-            } while (menu.continua());
+           // } while (menu.continua());
 
         }
-    }
+   // }
 }

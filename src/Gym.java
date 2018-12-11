@@ -4,9 +4,9 @@ public class Gym {
     private String name;
     private Location location;
 
-    public Gym(String name, JsonObject locationn) {
+    public Gym(String name, Location locationn) {
         this.name = name;
-        location = new Location(locationn.get("latitude").getAsFloat(), locationn.get("longitude").getAsFloat());
+        this.location = location;
     }
 
     public String getName() {

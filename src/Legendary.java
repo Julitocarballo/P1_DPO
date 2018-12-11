@@ -1,12 +1,14 @@
 import com.google.gson.JsonObject;
 
-public class Legendary extends Legend {
+public class Legendary extends Pokemon {
 
     private Gym gym;
+    private String kind;
 
-    public Legendary(int id, String kind, JsonObject gymm) {
-        super(id, kind);
-        gym = new Gym (gymm.get("name").getAsString(), gymm.get("location").getAsJsonObject());
+    public Legendary(int id, String name, int capture_rate, Gym gym, String kind) {
+        super(id, name, capture_rate);
+        this.gym =gym;
+        this.kind = kind;
 
     }
 

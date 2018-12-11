@@ -1,12 +1,44 @@
+import com.google.gson.JsonArray;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ExtreureDades {
     private Menu menu;
-    private LlegirJson llegirjson;
+    LlegirJson llegirjson = new LlegirJson();
+    private Pokemon[] pokemons;
+    private Pokeball[] pokeballs;
+    private LinkedList<Legendary> legends;
+    private LinkedList<Mythical> mythicals;
+    private JsonArray legend;
 
     private Scanner sc;
     public ExtreureDades() {
         sc = new Scanner(System.in);
+    }
+
+    public void setPokemons(){
+        this.pokemons = llegirjson.extreurePokemon();
+    }
+    public void setLegend(){
+        this.legend = llegirjson.extreureArray();
+    }
+
+    public String getPokemons(){
+        return pokemons[2].getName();
+    }
+
+    public void setPokeballs(){
+        this.pokeballs = llegirjson.getPokeball();
+    }
+
+    public void afegirLlegendari(int i){
+        legends.add(llegirjson.getLlegendari(i, legend));
+
+    }
+    public void afegirMitic(int i){
+        legends.add(llegirjson.getMitic);
     }
 
     public void execute(int opcio, User user) {
@@ -150,12 +182,12 @@ public class ExtreureDades {
     }
     public boolean actualitzaInventari(int unitats, int i, User user){
         boolean error;
-        if (unitats * llegirjson.getPokeball()[i].getPrice() > user.getMonedes()) {
+        if (unitats * pokeballs[i].getPrice() > user.getMonedes()) {
             error = true;
         }else{
-            user.setrestarMonedes(unitats * llegirjson.getPokeball()[i].getPrice());
+            user.setrestarMonedes(unitats * pokeballs[i].getPrice());
             user.setcomprarInventari(unitats, i);
-            System.out.println("S'han afegit " + unitats + llegirjson.getPokeball()[i].getName() + " al seu compte a canvi de " + unitats * llegirjson.getPokeball()[i].getPrice() + " monedes.");
+            System.out.println("S'han afegit " + unitats + pokeballs[i].getName() + " al seu compte a canvi de " + unitats * pokeballs[i].getPrice() + " monedes.");
             System.out.println(" ");
             error = false;
         }
@@ -167,7 +199,7 @@ public class ExtreureDades {
         System.out.println("Inventari: ");
         for(int i = 0; i < user.getInventari().length; i++){
             if(user.getInventari()[i] != 0){
-                System.out.println("    - " + user.getInventari()[i] + "x " + llegirjson.getPokeball()[i].getName());
+                System.out.println("    - " + user.getInventari()[i] + "x " + pokeballs[i].getName());
             }
         }
 
