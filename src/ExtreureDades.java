@@ -1,7 +1,5 @@
 import com.google.gson.JsonArray;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class ExtreureDades {
@@ -9,8 +7,6 @@ public class ExtreureDades {
     LlegirJson llegirjson = new LlegirJson();
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
-    private LinkedList<Legendary> legends;
-    private LinkedList<Mythical> mythicals;
     private JsonArray legend;
 
     private Scanner sc;
@@ -33,12 +29,12 @@ public class ExtreureDades {
         this.pokeballs = llegirjson.getPokeball();
     }
 
-    public void afegirLlegendari(int i){
-        legends.add(llegirjson.getLlegendari(i, legend));
+    public void afegirLlegendari(int i, int id){
+        pokemons[id - 1] = llegirjson.getLlegendari(id, i, pokemons[id - 1], legend);
 
     }
-    public void afegirMitic(int i){
-        legends.add(llegirjson.getMitic);
+    public void afegirMitic(int i, int id){
+        pokemons[id - 1] = llegirjson.getMitic(id, i, pokemons[id - 1], legend);
     }
 
     public void execute(int opcio, User user) {
@@ -225,4 +221,7 @@ public class ExtreureDades {
     }
 
 
+    public JsonArray getLegend() {
+        return legend;
+    }
 }

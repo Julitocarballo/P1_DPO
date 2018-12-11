@@ -28,23 +28,27 @@ public final class Main {
 
         int z = 0;
         extreuDades.setPokemons();
-        JsonArray jsonllegenmitics = json.extreureArray();
+        extreuDades.setLegend();
+        extreuDades.setPokeballs();
+        JsonArray jsonllegenmitics = extreuDades.getLegend();
         for (int i = 0; i < jsonllegenmitics.size(); i++) {
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
             if (kind) {
-                extreuDades.afegirLlegendari();
+                extreuDades.afegirLlegendari(i, id);
                 //Legendary aux = pokemons[i].legendary;
                 //aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
                 //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
                 //pokemons[id]
             } else {
-                extreuDades.afegirMitic();
+                extreuDades.afegirMitic(i, id);
                 //Mythical mit[i] = pokemons[i].mythical;
                 //9mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
 
             }
         }
+
+        System.out.println("hola");
         /*if (pokeballs == null || pokemons == null || jsonllegenmitics == null) {
             System.out.println("Error al llegir algun dels fitxers");
         } else {

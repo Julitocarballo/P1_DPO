@@ -68,25 +68,23 @@ public class LlegirJson {
         return (kind.equals("legendary"))? true : false;
     }
 
-    public Legendary getLlegendari(int i, JsonArray llegenmitics){
-        int id = extreureid(llegenmitics, i);
+    public Legendary getLlegendari(int id, int i, Pokemon pokemon, JsonArray llegenmitics){
 
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         JsonObject gym = llegenmitics.get(i).getAsJsonObject().get("gym").getAsJsonObject();
-        JsonObject locationn =  gym.get("location").getAsJsonObject();
+        JsonObject jsonLocation =  gym.get("location").getAsJsonObject();
 
-        Location location = new Location(locationn.get("latitude").getAsFloat(), locationn.get("longitude").getAsFloat());
+        Location location = new Location(jsonLocation.get("latitude").getAsFloat(), jsonLocation.get("longitude").getAsFloat());
         Gym g = new Gym (gym.get("name").getAsString(), location);
-        Legendary legend = new Legendary(id,, g, kind);
+        Legendary legend = new Legendary(id, pokemon.getName(), pokemon.getCapture_rate(), g, kind);
         return legend;
     }
-    public Mythical getMitic(int i, JsonArray llegenmitics){
-        int id = extreureid(llegenmitics, i);
+    public Mythical getMitic(int id, int i, Pokemon pokemon, JsonArray llegenmitics){
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         JsonObject special_research = llegenmitics.get(i).getAsJsonObject().get("special_research").getAsJsonObject();
 
         Recerca sr = new Recerca (special_research.get("name").getAsString(), special_research.get("quests").getAsJsonArray());
-        Mythical mitic = new Mythical(id, kind, sr);
+        Mythical mitic = new Mythical(id, kind, sr, pokemon.getCapture_rate(), pokemon.getName());
         return mitic;
     }
 

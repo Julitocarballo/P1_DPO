@@ -4,7 +4,7 @@ public class Gym {
     private String name;
     private Location location;
 
-    public Gym(String name, Location locationn) {
+    public Gym(String name, Location location) {
         this.name = name;
         this.location = location;
     }
