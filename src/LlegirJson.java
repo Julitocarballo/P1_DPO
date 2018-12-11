@@ -65,7 +65,7 @@ public class LlegirJson {
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         return (kind.equals("legendary"))? true : false;
     }
-    public Legendary extreureLlegendari(Legendary aux,int id,JsonArray llegenmitics, int i){
+    /*public Legendary extreureLlegendari(Legendary aux,int id,JsonArray llegenmitics, int i){
         aux.setId(id);
         aux.setKind(llegenmitics.get(i).getAsJsonObject().get("kind").getAsString());
         JsonElement jelement = new JsonParser().parse(LLEGENDARI);
@@ -90,6 +90,6 @@ public class LlegirJson {
         }
 
         return mit;
-    }
+    }*/
 
 }

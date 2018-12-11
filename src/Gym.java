@@ -1,10 +1,12 @@
+import com.google.gson.JsonObject;
+
 public class Gym {
     private String name;
     private Location location;
 
-    public Gym(String name, Location location) {
+    public Gym(String name, JsonObject locationn) {
         this.name = name;
-        this.location = location;
+        location = new Location(locationn.get("latitude").getAsFloat(), locationn.get("longitude").getAsFloat());
     }
 
     public String getName() {

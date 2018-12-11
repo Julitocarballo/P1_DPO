@@ -1,33 +1,15 @@
-public class Mythical extends Pokemon {
-    private int id;
-    private String kind;
+import com.google.gson.JsonObject;
+
+public class Mythical extends Legend {
     private Recerca special_research;
 
-    public Mythical(int id, String name, int capture_rate, Legendary legendary, Mythical mythical, int id1, String kind, Recerca special_research) {
-        super(id, name, capture_rate, legendary, mythical);
-        this.id = id1;
-        this.kind = kind;
-        this.special_research = special_research;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getKind() {
-        return kind;
+    public Mythical(int id, String kind,  JsonObject special_researchh) {
+        super(id, kind);
+        special_research = new Recerca( special_researchh.get("name").getAsString(), special_researchh.get("quests").getAsJsonArray());
     }
 
     public Recerca getSpecial_research() {
         return special_research;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setKind(String kind) {
-        this.kind = kind;
     }
 
     public void setSpecial_research(Recerca special_research) {

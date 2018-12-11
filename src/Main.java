@@ -28,7 +28,7 @@ public final class Main {
         ExtreureDades extreuDades = new ExtreureDades();
 
 
-        int z = 0, k = 0;
+        int z = 0;
         pokeballs = json.getPokeball();
         pokemons = json.extreurePokemon();
         JsonArray jsonllegenmitics = json.extreureArray();
@@ -36,13 +36,13 @@ public final class Main {
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
             if (kind) {
-                Legendary aux = pokemons[i].legendary;
-                aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
+                //Legendary aux = pokemons[i].legendary;
+                //aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
                 //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
                 //pokemons[id]
             } else {
-                Mythical mit[i] = pokemons[i].mythical;
-                mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
+                //Mythical mit[i] = pokemons[i].mythical;
+                //9mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
 
             }
         }

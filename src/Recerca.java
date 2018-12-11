@@ -1,10 +1,16 @@
+import com.google.gson.JsonArray;
+import java.util.LinkedList;
 public class Recerca {
     private String name;
-    private Missio[] quests;
+    private LinkedList<Missio> quests;
 
-    public Recerca(String name, Missio[] quests) {
+    public Recerca(String name, JsonArray questss) {
         this.name = name;
-        this.quests = quests;
+        quests = new LinkedList<>();
+        for(int k = 0; k < questss.size(); k++){
+            Missio quest = new Missio (questss.get(k).getAsJsonObject().get("target").getAsInt(), questss.get(k).getAsJsonObject().get("quantity").getAsInt());
+            quests.add(quest);
+        }
     }
 
     public String getName() {
@@ -15,11 +21,11 @@ public class Recerca {
         this.name = name;
     }
 
-    public Missio[] getQuests() {
+    public LinkedList<Missio> getQuests() {
         return quests;
     }
 
-    public void setQuests(Missio[] quests) {
+    public void setQuests(LinkedList<Missio> quests) {
         this.quests = quests;
     }
 }
