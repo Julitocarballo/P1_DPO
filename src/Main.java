@@ -41,7 +41,12 @@ public final class Main {
 
             }
         }
-
+        /*for(int i=0;i<extreuDades.getPokemons().length ; i++){
+           if (extreuDades.getPokemons()[i] instanceof Legendary){
+               Legendary l= (Legendary) extreuDades.getPokemons()[i];
+               System.out.println(l.getGym().getName());
+           }
+        }*/
 
 
         do {
@@ -51,7 +56,7 @@ public final class Main {
                 menu.mostraMenu();
             } while (menu.demanaOpcio());
             /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-            extreuDades.execute(user, menu);
+            extreuDades.execute(menu, user);
             /*info.execute(menu.getOpcio());*/
         } while (menu.continua());
 

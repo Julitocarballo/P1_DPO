@@ -7,7 +7,6 @@ public class Menu {
     private Scanner sc;
     private int opcio;
     private LlegirJson llegirJson;
-    ExtreureDades ed = new ExtreureDades();
 
     public Menu() {
         sc = new Scanner(System.in);
@@ -69,13 +68,13 @@ public class Menu {
         return false;
     }
 
-    public void mostraMenu2(){
+    public void mostraMenu2(Pokeball[] pokeballs){
 
         System.out.println("Pokéballs disponibles:");
-        System.out.println("    a) Pokéball:    " + ed.getPokeball(0).getPrice() + " monedes");
-        System.out.println("    b) Superball:   " + ed.getPokeball(1).getPrice() + " monedes");
-        System.out.println("    c) Ultraball:   " + ed.getPokeball(2).getPrice() + " monedes");
-        System.out.println("    d) Masterball:  " + ed.getPokeball(3).getPrice() + " monedes");
+        System.out.println("    a) Pokéball:    " + pokeballs[0].getPrice() + " monedes");
+        System.out.println("    b) Superball:   " + pokeballs[1].getPrice() + " monedes");
+        System.out.println("    c) Ultraball:   " + pokeballs[2].getPrice() + " monedes");
+        System.out.println("    d) Masterball:  " + pokeballs[3].getPrice() + " monedes");
         System.out.println(" ");
         System.out.println("    e) Sortir sense comprar");
         System.out.println(" ");

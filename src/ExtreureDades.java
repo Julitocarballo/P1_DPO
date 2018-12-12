@@ -30,17 +30,19 @@ public class ExtreureDades {
     public void setPokeballs(){
         this.pokeballs = llegirjson.getPokeball();
     }
-
+//TODO CAMBIAR ID -1 PER I
     public void afegirLlegendari(int i, int id){
         pokemons[id - 1] = llegirjson.getLlegendari(id, i, pokemons[id - 1], legend);
-        System.out.println(pokemons[id-1]);
-
     }
     public void afegirMitic(int i, int id){
         pokemons[id - 1] = llegirjson.getMitic(id, i, pokemons[id - 1], legend);
     }
 
-    public void execute(User user, Menu menu) {
+    public Pokemon[] getPokemons() {
+        return pokemons;
+    }
+
+    public void execute(Menu menu, User user) {
         int opcio = menu.getOpcio();
         switch (opcio) {
 
@@ -132,7 +134,7 @@ public class ExtreureDades {
         boolean error = false;
 
         System.out.println("Teniu " + user.getMonedes() + " monedes.");
-        menu.mostraMenu2();
+        menu.mostraMenu2(pokeballs);
         op = sc.next();
 
         if(op.equalsIgnoreCase("a") || op.equalsIgnoreCase("b") || op.equalsIgnoreCase("c") || op.equalsIgnoreCase("d") ){
