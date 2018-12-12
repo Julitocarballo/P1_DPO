@@ -1,5 +1,6 @@
 import com.google.gson.JsonArray;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class ExtreureDades {
@@ -8,6 +9,7 @@ public class ExtreureDades {
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
     private JsonArray legend;
+    DecimalFormat df = new DecimalFormat("#.00");
 
     private Scanner sc;
     public ExtreureDades() {
@@ -21,8 +23,8 @@ public class ExtreureDades {
         this.legend = llegirjson.extreureArray();
     }
 
-    public String getPokemons(){
-        return pokemons[2].getName();
+    public Pokeball getPokeball(int i){
+        return pokeballs[i];
     }
 
     public void setPokeballs(){
@@ -31,13 +33,14 @@ public class ExtreureDades {
 
     public void afegirLlegendari(int i, int id){
         pokemons[id - 1] = llegirjson.getLlegendari(id, i, pokemons[id - 1], legend);
+        System.out.println(pokemons[id-1]);
 
     }
     public void afegirMitic(int i, int id){
         pokemons[id - 1] = llegirjson.getMitic(id, i, pokemons[id - 1], legend);
     }
 
-    public void execute(int opcio, User user) {
+    public void execute(int opcio, User user, Menu menu) {
 
         switch (opcio) {
 
@@ -105,7 +108,7 @@ public class ExtreureDades {
                 }
             }
         }
-        System.out.println("El preu total és de " + preutotal + "€. Confirma la compra? (Y/N)");
+        System.out.println("El preu total és de " + df.format(preutotal/100) + "€. Confirma la compra? (Y/N)");
         confirmar = sc.next();
         System.out.println(" ");
 

@@ -82,37 +82,10 @@ public class LlegirJson {
     public Mythical getMitic(int id, int i, Pokemon pokemon, JsonArray llegenmitics){
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         JsonObject special_research = llegenmitics.get(i).getAsJsonObject().get("special_research").getAsJsonObject();
-
         Recerca sr = new Recerca (special_research.get("name").getAsString(), special_research.get("quests").getAsJsonArray());
         Mythical mitic = new Mythical(id, kind, sr, pokemon.getCapture_rate(), pokemon.getName());
         return mitic;
     }
 
-   /* public Legendary extreureLlegendari(Legendary aux,int id,JsonArray llegenmitics, int i){
-        aux.setId(id);
-        aux.setKind(llegenmitics.get(i).getAsJsonObject().get("kind").getAsString());
-        JsonElement jelement = new JsonParser().parse(LLEGENDARI);
-        JsonObject jobject = jelement.getAsJsonObject();
-        jobject = jobject.getAsJsonObject("gym");
-        aux.getGym().setName(jobject.get("name").getAsString());
-        aux.getGym().getLocation().setLongitude(jobject.get("longitude").getAsFloat());
-        aux.getGym().getLocation().setLatitude(jobject.get("latitude").getAsFloat());
-        return aux;
-    }
-    public Mythical extreureMitic(Mythical mit,int id,JsonArray llegenmitics, int i){
-        mit.setId(id);
-        mit.setKind(llegenmitics.get(i).getAsJsonObject().get("kind").getAsString());
-        JsonElement jelement = new JsonParser().parse(LLEGENDARI);
-        JsonObject jobject = jelement.getAsJsonObject();
-        jobject = jobject.getAsJsonObject("special_research");
-        mit.getSpecial_research().setName(jobject.get("name").getAsString());
-        JsonArray arr = jobject.getAsJsonArray("quests");
-        for(int j=0;j<arr.size();j++){
-            mit.getSpecial_research().getQuests()[j].setTarget(jobject.get("target").getAsInt());
-            mit.getSpecial_research().getQuests()[j].setQuantity(jobject.get("quantity").getAsInt());
-        }
-
-        return mit;
-    }*/
 
 }

@@ -26,7 +26,6 @@ public final class Main {
         ExtreureDades extreuDades = new ExtreureDades();
 
 
-        int z = 0;
         extreuDades.setPokemons();
         extreuDades.setLegend();
         extreuDades.setPokeballs();
@@ -36,40 +35,26 @@ public final class Main {
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);
             if (kind) {
                 extreuDades.afegirLlegendari(i, id);
-                //Legendary aux = pokemons[i].legendary;
-                //aux = json.extreureLlegendari(aux, id, jsonllegenmitics, i);
-                //aux.setGymFromJsonObject(jsonllegenmitics.get(0).getAsJsonObject().get("gym"));
-                //pokemons[id]
+
             } else {
                 extreuDades.afegirMitic(i, id);
-                //Mythical mit[i] = pokemons[i].mythical;
-                //9mit = json.extreureMitic(mit, id, jsonllegenmitics, i);
 
             }
         }
 
-        System.out.println("hola");
-        /*if (pokeballs == null || pokemons == null || jsonllegenmitics == null) {
-            System.out.println("Error al llegir algun dels fitxers");
-        } else {
 
-            //Legendary aux = (Legendary) pokemons[id - 1];
-            //aux.setGymFromJsonObject(legends.get(0).getAsJsonObject().get("gym"));
-            //pokemons[id - 1] = aux;
-            //comprovem Null
 
+        do {
 
             do {
 
-                do {
+                menu.mostraMenu();
+            } while (menu.demanaOpcio());
+            /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
+            extreuDades.execute(menu.getOpcio(), user, menu);
+            /*info.execute(menu.getOpcio());*/
+        } while (menu.continua());
 
-                    menu.mostraMenu();
-                } while (menu.demanaOpcio());
-                /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-                extreuDades.execute(menu.getOpcio(), user);
-                /*info.execute(menu.getOpcio());*/
-           // } while (menu.continua());
+    }
 
-        }
-   // }
 }
