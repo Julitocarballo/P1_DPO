@@ -40,8 +40,8 @@ public class ExtreureDades {
         pokemons[id - 1] = llegirjson.getMitic(id, i, pokemons[id - 1], legend);
     }
 
-    public void execute(int opcio, User user, Menu menu) {
-
+    public void execute(User user, Menu menu) {
+        int opcio = menu.getOpcio();
         switch (opcio) {
 
             case 1:

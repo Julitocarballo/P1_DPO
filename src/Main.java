@@ -51,7 +51,7 @@ public final class Main {
                 menu.mostraMenu();
             } while (menu.demanaOpcio());
             /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-            extreuDades.execute(menu.getOpcio(), user, menu);
+            extreuDades.execute(user, menu);
             /*info.execute(menu.getOpcio());*/
         } while (menu.continua());
 

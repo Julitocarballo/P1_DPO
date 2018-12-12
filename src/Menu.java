@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public final class Menu {
+public class Menu {
 
     private static final int MIN_MENU = 1;
     private static final int MAX_MENU = 9;

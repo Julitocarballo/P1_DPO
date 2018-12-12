@@ -14,7 +14,7 @@ public class User {
     }
 
     public User() {
-        monedes = 1000;
+        this.monedes = 1000;
     }
 
     public int getMonedes() {
