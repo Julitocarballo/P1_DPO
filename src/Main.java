@@ -20,7 +20,6 @@ public final class Main {
 
     public static void main(String args[]) {
         LlegirJson json = new LlegirJson();
-        User user = new User();
         Menu menu = new Menu();
         JsonReader reader;
         ExtreureDades extreuDades = new ExtreureDades();
@@ -56,7 +55,7 @@ public final class Main {
                 menu.mostraMenu();
             } while (menu.demanaOpcio());
             /*S'exeecuta l'opcio demanada anteriorment sob la inf*/
-            extreuDades.execute(menu, user);
+            extreuDades.execute(menu);
             /*info.execute(menu.getOpcio());*/
         } while (menu.continua());
 

@@ -5,11 +5,12 @@ import java.util.Scanner;
 
 public class ExtreureDades {
     private Menu menu;
+    User user = new User();
     LlegirJson llegirjson = new LlegirJson();
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
     private JsonArray legend;
-    DecimalFormat df = new DecimalFormat("#.00");
+    DecimalFormat df = new DecimalFormat("#0.00");
 
     private Scanner sc;
     public ExtreureDades() {
@@ -42,28 +43,28 @@ public class ExtreureDades {
         return pokemons;
     }
 
-    public void execute(Menu menu, User user) {
+    public void execute(Menu menu) {
         int opcio = menu.getOpcio();
         switch (opcio) {
 
             case 1:
 
-                opcio1(user);
+                opcio1();
                 break;
 
             case 2:
 
-                opcio2(menu, user);
+                opcio2(menu);
                 break;
 
             case 3:
 
-                opcio3(user);
+                opcio3();
                 break;
 
             case 4:
 
-                opcio4(user);
+                opcio4();
                 break;
 
             case 5:
@@ -78,7 +79,7 @@ public class ExtreureDades {
         }
     }
 
-    public void opcio1(User user) {
+    public void opcio1() {
         int buycoins;
         double preutotal;
         String confirmar;
@@ -127,7 +128,7 @@ public class ExtreureDades {
         }
     }
 
-    public void opcio2(Menu menu, User user) {
+    public void opcio2(Menu menu) {
         String op;
         char opcio;
         int unitats;
@@ -150,19 +151,19 @@ public class ExtreureDades {
                 switch (opcio) {
 
                     case 'a':
-                        error = actualitzaInventari(unitats, 0, user);
+                        error = actualitzaInventari(unitats, 0);
                         break;
 
                     case 'b':
-                        error = actualitzaInventari(unitats, 1, user);
+                        error = actualitzaInventari(unitats, 1);
                         break;
 
                     case 'c':
-                        error = actualitzaInventari(unitats, 2, user);
+                        error = actualitzaInventari(unitats, 2);
                         break;
 
                     case 'd':
-                        error = actualitzaInventari(unitats, 3, user);
+                        error = actualitzaInventari(unitats, 3);
                         break;
                 }
                 if(error){
@@ -181,7 +182,7 @@ public class ExtreureDades {
         }
 
     }
-    public boolean actualitzaInventari(int unitats, int i, User user){
+    public boolean actualitzaInventari(int unitats, int i){
         boolean error;
         if (unitats * pokeballs[i].getPrice() > user.getMonedes()) {
             error = true;
@@ -195,7 +196,7 @@ public class ExtreureDades {
         return error;
     }
 
-    public void opcio3(User user){
+    public void opcio3(){
         //dubte amb printar el nom de la pokeball ja que no és clavat al enunciat (majúscules, accents..) diferent al json
         System.out.println("Inventari: ");
         for(int i = 0; i < user.getInventari().length; i++){
@@ -206,8 +207,8 @@ public class ExtreureDades {
 
     }
 
-    public void opcio4(User user){
-      if(!pokemonDisponible(user)){
+    public void opcio4(){
+      if(!pokemonDisponible()){
 
           System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
           System.out.println(" ");
@@ -215,7 +216,7 @@ public class ExtreureDades {
           System.out.println("Quin Pokémon vol buscar?");
       }
     }
-    public boolean pokemonDisponible(User user) {
+    public boolean pokemonDisponible() {
         boolean pokdisp = false;
         for (int i = 0; i < user.getInventari().length && !pokdisp; i++) {
             if (user.getInventari()[i] != 0){
