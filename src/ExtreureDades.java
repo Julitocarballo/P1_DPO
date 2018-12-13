@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 public class ExtreureDades {
     private Menu menu;
-    User user = new User();
-    LlegirJson llegirjson = new LlegirJson();
+    private LlegirJson llegirjson = new LlegirJson();
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
+    //User user = new User(pokeballs.length);
+    private User user;
     private JsonArray legend;
-    DecimalFormat df = new DecimalFormat("#0.00");
+    private DecimalFormat df = new DecimalFormat("#0.00");
 
     private Scanner sc;
+
     public ExtreureDades() {
         sc = new Scanner(System.in);
     }
@@ -20,6 +22,7 @@ public class ExtreureDades {
     public void setPokemons(){
         this.pokemons = llegirjson.extreurePokemon();
     }
+
     public void setLegend(){
         this.legend = llegirjson.extreureArray();
     }
@@ -31,6 +34,11 @@ public class ExtreureDades {
     public void setPokeballs(){
         this.pokeballs = llegirjson.getPokeball();
     }
+
+    public void creaUsuari(){
+       user = new User(pokeballs.length);
+    }
+
 //TODO CAMBIAR ID -1 PER I
     public void afegirLlegendari(int i, int id){
         pokemons[id - 1] = llegirjson.getLlegendari(id, i, pokemons[id - 1], legend);
@@ -117,8 +125,8 @@ public class ExtreureDades {
 
         if (confirmar.equalsIgnoreCase("y")) {
             user.setsumarMonedes(buycoins);
-            System.out.println(" ");
             System.out.println("S'han afegit " + buycoins + " monedes al seu compte.");
+            System.out.println(" ");
         } else {
             if (confirmar.equalsIgnoreCase("n")) {
                 System.out.println("Compra cancel·lada.");
@@ -129,17 +137,20 @@ public class ExtreureDades {
     }
 
     public void opcio2(Menu menu) {
-        String op;
-        char opcio;
+        char op;
         int unitats;
         boolean error = false;
 
+        System.out.println(" ");
         System.out.println("Teniu " + user.getMonedes() + " monedes.");
+        System.out.println(" ");
         menu.mostraMenu2(pokeballs);
-        op = sc.next();
+        op = sc.next().charAt(0);
 
-        if(op.equalsIgnoreCase("a") || op.equalsIgnoreCase("b") || op.equalsIgnoreCase("c") || op.equalsIgnoreCase("d") ){
-
+        if(Character.isLetter(op)){
+            if(Character.isUpperCase(op)){
+                op = Character.toLowerCase(op);
+            }
             System.out.println("Quantes unitats en vol comprar?");
             unitats = sc.nextInt();
             System.out.println(" ");
@@ -147,32 +158,14 @@ public class ExtreureDades {
                 System.out.println("Error, el nombre d'unitats no pot ser negatiu!");
                 System.out.println(" ");
             }else{
-                opcio = op.charAt(0);
-                switch (opcio) {
-
-                    case 'a':
-                        error = actualitzaInventari(unitats, 0);
-                        break;
-
-                    case 'b':
-                        error = actualitzaInventari(unitats, 1);
-                        break;
-
-                    case 'c':
-                        error = actualitzaInventari(unitats, 2);
-                        break;
-
-                    case 'd':
-                        error = actualitzaInventari(unitats, 3);
-                        break;
-                }
+                error = actualitzaInventari(unitats, op);
                 if(error){
                     System.out.println("Ho sentim, però no disposa de suficients monedes");
                     System.out.println(" ");
                 }
             }
         }else{
-            if(op.equalsIgnoreCase("e")){
+            if(op == 'e'){
                 System.out.println("Sortint de l'opció 2");
                 System.out.println(" ");
             }else{
@@ -182,14 +175,14 @@ public class ExtreureDades {
         }
 
     }
-    public boolean actualitzaInventari(int unitats, int i){
+    public boolean actualitzaInventari(int unitats, char op){
         boolean error;
-        if (unitats * pokeballs[i].getPrice() > user.getMonedes()) {
+        if (unitats * pokeballs[op-97].getPrice() > user.getMonedes()) {
             error = true;
         }else{
-            user.setrestarMonedes(unitats * pokeballs[i].getPrice());
-            user.setcomprarInventari(unitats, i);
-            System.out.println("S'han afegit " + unitats + pokeballs[i].getName() + " al seu compte a canvi de " + unitats * pokeballs[i].getPrice() + " monedes.");
+            user.setrestarMonedes(unitats * pokeballs[op-97].getPrice());
+            user.setcomprarInventari(unitats, op-97);
+            System.out.println("S'han afegit " + unitats + " " + pokeballs[op-97].getName() + " al seu compte a canvi de " + unitats * pokeballs[op-97].getPrice() + " monedes.");
             System.out.println(" ");
             error = false;
         }
@@ -204,6 +197,7 @@ public class ExtreureDades {
                 System.out.println("    - " + user.getInventari()[i] + "x " + pokeballs[i].getName());
             }
         }
+        System.out.println(" ");
 
     }
 
@@ -230,4 +224,5 @@ public class ExtreureDades {
     public JsonArray getLegend() {
         return legend;
     }
+
 }

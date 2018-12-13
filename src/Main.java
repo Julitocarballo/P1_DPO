@@ -28,7 +28,9 @@ public final class Main {
         extreuDades.setPokemons();
         extreuDades.setLegend();
         extreuDades.setPokeballs();
+        extreuDades.creaUsuari();
         JsonArray jsonllegenmitics = extreuDades.getLegend();
+
         for (int i = 0; i < jsonllegenmitics.size(); i++) {
             int id = json.extreureid(jsonllegenmitics, i);
             boolean kind = json.llegendariMitic(jsonllegenmitics, i);

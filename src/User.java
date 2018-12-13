@@ -3,18 +3,19 @@ public class User {
     private int monedes;
     private int[] inventari;
 
+    public User(int mida) {
+        monedes = 1000;
+        inventari = new int[mida];
+        inventari[0] = 3;
+    }
+
 
     public int[] getInventari() {
-        inventari[0] = 3;
         return inventari;
     }
 
-    public void setcomprarInventari(int inventari, int i) {
-        this.inventari[i] += inventari;
-    }
-
-    public User() {
-        this.monedes = 1000;
+    public void setcomprarInventari(int unitats, int i) {
+        inventari[i] += unitats;
     }
 
     public int getMonedes() {

@@ -69,12 +69,12 @@ public class Menu {
     }
 
     public void mostraMenu2(Pokeball[] pokeballs){
-
+        char lletra = 97;
         System.out.println("Pokéballs disponibles:");
-        System.out.println("    a) Pokéball:    " + pokeballs[0].getPrice() + " monedes");
-        System.out.println("    b) Superball:   " + pokeballs[1].getPrice() + " monedes");
-        System.out.println("    c) Ultraball:   " + pokeballs[2].getPrice() + " monedes");
-        System.out.println("    d) Masterball:  " + pokeballs[3].getPrice() + " monedes");
+        for(int i = 0; i < pokeballs.length && lletra < 123; i++){
+            System.out.println("    " + lletra + ") " + pokeballs[i].getName() + ":     " + pokeballs[i].getPrice() + " monedes");
+            lletra++;
+        }
         System.out.println(" ");
         System.out.println("    e) Sortir sense comprar");
         System.out.println(" ");
