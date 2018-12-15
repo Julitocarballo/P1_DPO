@@ -8,7 +8,6 @@ public class ExtreureDades {
     private LlegirJson llegirjson = new LlegirJson();
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
-    //User user = new User(pokeballs.length);
     private User user;
     private JsonArray legend;
     private Haversine haversine;
@@ -222,13 +221,86 @@ public class ExtreureDades {
     }
 
     public void opcio4(){
-      if(!pokemonDisponible()){
+        boolean trobat = false, mitic = false, llegendary= false;
+        String pokename;
+        int pokeid = 0;
+        int posiciopoke = 0;
 
+
+      if(!pokemonDisponible()){
+          System.out.println(" ");
           System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
           System.out.println(" ");
       }else{
           System.out.println("Quin Pokémon vol buscar?");
+          pokename = sc.nextLine();
+          if(isNumeric(pokename)){
+             pokeid = Integer.parseInt(pokename);
+              for (int i = 0; i < pokemons.length; i++) {
+                  if (pokemons[i].getId() == pokeid && !(pokemons[i] instanceof Legendary) && !(pokemons[i] instanceof Mythical)){
+                      trobat = true;
+                      posiciopoke = i;
+                  }else{
+                      if(pokemons[i].getId() == pokeid && (pokemons[i] instanceof Mythical)){
+                        trobat = true;
+                        mitic = true;
+                      }
+                      if(pokemons[i].getId() == pokeid && (pokemons[i] instanceof Legendary)){
+                          trobat = true;
+                          llegendary = true;
+                      }
+                  }
+              }
+          }else{
+              for (int i = 0; i < pokemons.length; i++) {
+                  if (pokemons[i].getName().equals(pokename) && !(pokemons[i] instanceof Legendary) && !(pokemons[i] instanceof Mythical)) {
+                      trobat = true;
+                      posiciopoke = i;
+                  }else{
+                      if(pokemons[i].getName().equals(pokename) && (pokemons[i] instanceof Mythical)){
+                          trobat = true;
+                          mitic = true;
+                      }
+                      if(pokemons[i].getName().equals(pokename) && (pokemons[i] instanceof Legendary)){
+                          trobat = true;
+                          llegendary = true;
+                      }
+                  }
+              }
+          }
+         controlErrorsop4(trobat, llegendary, mitic);
+         if(trobat && !mitic && !llegendary) {
+             System.out.println("Un " + pokemons[posiciopoke].getName() + " salvatge aparagué!");
+             System.out.println(" ");
+
+
+         }
       }
+    }
+    public void controlErrorsop4(boolean trobat, boolean llegendary, boolean mitic){
+        if (trobat && mitic){
+            System.out.println(" ");
+            System.out.println("Ho sentim, però aquest Pokémon és mític.");
+            System.out.println(" ");
+        }
+        if (trobat && llegendary){
+            System.out.println(" ");
+            System.out.println("Ho sentim, però aquest Pokémon és llegendari.");
+            System.out.println(" ");
+        }
+        if (!trobat){
+            System.out.println(" ");
+            System.out.println("Ho sentim, però aquest Pokémon no existeix(encara).");
+            System.out.println(" ");
+        }
+    }
+    private static boolean isNumeric(String cadena){
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
     public void opcio5(Pokemon[] pokemons){
