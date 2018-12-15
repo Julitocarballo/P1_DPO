@@ -12,8 +12,8 @@ public class Captura {
         return intents;
     }
 
-    public void setIntents(int intents) {
-        this.intents = intents;
+    public void restaIntents() {
+        this.intents--;
     }
 
     public boolean capturaPokeSalvatge(int pm, int pb){
@@ -21,14 +21,12 @@ public class Captura {
         double probabilitat;
         double randomnumber = Math.random();
 
-        probabilitat = (double)(pb/256) +(double)(pm/2048);
+        probabilitat = (double)(pb/256) + (double)(pm/2048);
 
        if(randomnumber < probabilitat){
         capturat = true;
         }
-
         return capturat;
-
     }
 
     public boolean capturaPokeLegendary(int pm, int pb){

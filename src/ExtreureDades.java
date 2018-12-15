@@ -284,23 +284,34 @@ public class ExtreureDades {
                  System.out.println("No queden Pokeballs...");
                  System.out.println(" ");
              }else{
-                 System.out.println("Queden " + user.getNumPokeballs() + "Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?" );
                  do {
-                     pokeballname = sc.nextLine();
-                     if (!existeixPokeball(pokeballname)) {
-                         System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
-                     }
-                 }while(!existeixPokeball(pokeballname));
-                 System.out.println(" ");
-                 if(captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())){
-                     System.out.println("El Pokémon " + pokemons[posiciopoke] + " ha estat capturat!");
+                     System.out.println("Queden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                     do {
+                         pokeballname = sc.nextLine();
+                         if (!existeixPokeball(pokeballname)) {
+                             System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
+                         }
+                     } while (!existeixPokeball(pokeballname));
                      System.out.println(" ");
-                     user.afegirPokemonCapturat(pokemons[posiciopoke]);
-                 }else{
-                     System.out.println("La " + pokeballs[cercaPokeball(pokeballname)] + " ha fallat!");
+                     if (captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
+                         System.out.println("El Pokémon " + pokemons[posiciopoke].getName() + " ha estat capturat!");
+                         System.out.println(" ");
+                         user.afegirPokemonCapturat(pokemons[posiciopoke]);
+                     } else {
+                         System.out.println("La " + pokeballs[cercaPokeball(pokeballname)].getName() + " ha fallat!");
+                         System.out.println(" ");
+                     }
+                     user.gastarPokeball(cercaPokeball(pokeballname));
+                     captura.restaIntents();
+                     if(captura.getIntents() == 0) {
+                         System.out.println("El " + pokemons[posiciopoke].getName() + " ha escapat...");
+                         System.out.println(" ");
+                     }
+                 }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0);
+                 if(user.getNumPokeballs() == 0) {
+                     System.out.println("No queden Pokeballs...");
                      System.out.println(" ");
                  }
-                 user.gastarPokeball(cercaPokeball(pokeballname));
              }
 
          }
