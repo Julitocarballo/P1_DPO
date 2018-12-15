@@ -77,11 +77,23 @@ public class ExtreureDades {
 
             case 5:
 
-                //opcio5();
+                opcio5();
                 break;
 
             case 6:
 
+
+                break;
+
+            case 7:
+
+                break;
+
+            case 8:
+
+                break;
+
+            case 9:
                 System.out.println("Fi programa.");
                 break;
         }
@@ -210,6 +222,10 @@ public class ExtreureDades {
           System.out.println("Quin Pokémon vol buscar?");
       }
     }
+
+    public void opcio5(){
+
+    }
     public boolean pokemonDisponible() {
         boolean pokdisp = false;
         for (int i = 0; i < user.getInventari().length && !pokdisp; i++) {
@@ -225,4 +241,7 @@ public class ExtreureDades {
         return legend;
     }
 
+
+
 }
+
