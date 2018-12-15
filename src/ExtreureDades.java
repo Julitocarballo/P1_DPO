@@ -11,6 +11,7 @@ public class ExtreureDades {
     //User user = new User(pokeballs.length);
     private User user;
     private JsonArray legend;
+    private Haversine haversine;
     private DecimalFormat df = new DecimalFormat("#0.00");
 
     private Scanner sc;
@@ -37,6 +38,13 @@ public class ExtreureDades {
 
     public void creaUsuari(){
        user = new User(pokeballs.length);
+    }
+
+    public Location getLocation(Pokemon pokemons){
+            Legendary l= (Legendary) pokemons;
+            Gym g = l.getGym();
+            Location location= g.getLocation();
+            return location;
     }
 
 //TODO CAMBIAR ID -1 PER I
@@ -77,7 +85,7 @@ public class ExtreureDades {
 
             case 5:
 
-                opcio5();
+                opcio5(pokemons);
                 break;
 
             case 6:
@@ -223,7 +231,26 @@ public class ExtreureDades {
       }
     }
 
-    public void opcio5(){
+    public void opcio5(Pokemon[] pokemons){
+        System.out.println("Latitud actual?");
+        float latitud_actual = sc.nextFloat();
+        if(latitud_actual<=-90 || latitud_actual>=90){
+            System.out.println("Error, latitud incorrecte (-90,90)");
+        }else {
+            System.out.println("Longitud_actual");
+            float longitud_actual = sc.nextFloat();
+            if(longitud_actual<=-180 || longitud_actual>=180) {
+                System.out.println("Error, longitud incorrecte (-180,180)");
+            }else {
+                for (int i = 0; i < pokemons.length; i++) {
+                    if (pokemons[i] instanceof Legendary) {
+                        Location l = getLocation(pokemons[i]);
+                        haversine.calcularDistancia(latitud_actual, longitud_actual, l.getLatitude(), l.getLongitude());
+
+                    }
+                }
+            }
+        }
 
     }
     public boolean pokemonDisponible() {
