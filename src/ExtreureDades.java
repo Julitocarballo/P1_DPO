@@ -10,7 +10,7 @@ public class ExtreureDades {
     private Pokeball[] pokeballs;
     private User user;
     private JsonArray legend;
-    private Haversine haversine;
+    Haversine haversine = new Haversine();
     private DecimalFormat df = new DecimalFormat("#0.00");
 
     private Scanner sc;
@@ -40,11 +40,17 @@ public class ExtreureDades {
     }
 
     public Location getLocation(Pokemon pokemons){
-            Legendary l= (Legendary) pokemons;
-            Gym g = l.getGym();
-            Location location= g.getLocation();
-            return location;
+        Legendary l= (Legendary) pokemons;
+        Gym g = l.getGym();
+        Location location= g.getLocation();
+        return location;
     }
+    public Gym getGym(Pokemon pokemons){
+        Legendary l= (Legendary) pokemons;
+        Gym g = l.getGym();
+        return g;
+    }
+
 
 //TODO CAMBIAR ID -1 PER I
     public void afegirLlegendari(int i, int id){
@@ -84,7 +90,7 @@ public class ExtreureDades {
 
             case 5:
 
-                opcio5(pokemons);
+                opcio5();
                 break;
 
             case 6:
@@ -303,14 +309,16 @@ public class ExtreureDades {
         }
     }
 
-    public void opcio5(Pokemon[] pokemons){
+    public void opcio5(){
+        double dminima=-1;
+        int j=0;
         System.out.println("Latitud actual?");
-        float latitud_actual = sc.nextFloat();
+        double latitud_actual = sc.nextDouble();
         if(latitud_actual<=-90 || latitud_actual>=90){
             System.out.println("Error, latitud incorrecte (-90,90)");
         }else {
             System.out.println("Longitud_actual");
-            float longitud_actual = sc.nextFloat();
+            double longitud_actual = sc.nextDouble();
             if(longitud_actual<=-180 || longitud_actual>=180) {
                 System.out.println("Error, longitud incorrecte (-180,180)");
             }else {
@@ -318,8 +326,19 @@ public class ExtreureDades {
                     if (pokemons[i] instanceof Legendary) {
                         Location l = getLocation(pokemons[i]);
                         haversine.calcularDistancia(latitud_actual, longitud_actual, l.getLatitude(), l.getLongitude());
-
+                        if(dminima==-1 || dminima>haversine.getDistancia()){
+                            dminima=haversine.getDistancia();
+                            j=i;
+                        }
                     }
+                }
+                if(dminima==-1){
+                    System.out.println("No s'ha trobat cap gimnas");
+                }else{
+                    Gym g= getGym(pokemons[j]);
+                    System.out.println("Gimnas mes proper: "+g.getName()+". Comencant raid...\n");
+                    System.out.println("El boss de raid "+pokemons[j].getName()+" us repta!\n");
+
                 }
             }
         }
