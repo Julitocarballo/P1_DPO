@@ -21,7 +21,7 @@ public class Captura {
         double probabilitat;
         double randomnumber = Math.random();
 
-        probabilitat = (pb/256) +(pm/2048);
+        probabilitat = (double)(pb/256) +(double)(pm/2048);
 
        if(randomnumber < probabilitat){
         capturat = true;
