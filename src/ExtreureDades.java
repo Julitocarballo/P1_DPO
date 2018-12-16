@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class ExtreureDades {
     private Menu menu;
+    private Captura captura;
     private LlegirJson llegirjson = new LlegirJson();
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
@@ -200,6 +201,7 @@ public class ExtreureDades {
         }
 
     }
+
     public boolean actualitzaInventari(int unitats, char op){
         boolean error;
         if (unitats * pokeballs[op-97].getPrice() > user.getMonedes()) {
@@ -228,9 +230,9 @@ public class ExtreureDades {
 
     public void opcio4(){
         boolean trobat = false, mitic = false, llegendary= false;
-        String pokename;
-        int pokeid = 0;
-        int posiciopoke = 0;
+        String pokename, pokeballname;
+        int pokeid = 0, posiciopoke = 0;
+        captura = new Captura();
 
 
       if(!pokemonDisponible()){
@@ -278,11 +280,72 @@ public class ExtreureDades {
          if(trobat && !mitic && !llegendary) {
              System.out.println("Un " + pokemons[posiciopoke].getName() + " salvatge aparagué!");
              System.out.println(" ");
-
+             if(user.getNumPokeballs() == 0){
+                 System.out.println("No queden Pokeballs...");
+                 System.out.println(" ");
+             }else{
+                 do {
+                     System.out.println("Queden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                     do {
+                         pokeballname = sc.nextLine();
+                         if (!existeixPokeball(pokeballname)) {
+                             System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
+                         }
+                     } while (!existeixPokeball(pokeballname));
+                     System.out.println(" ");
+                     if (captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
+                         System.out.println("El Pokémon " + pokemons[posiciopoke].getName() + " ha estat capturat!");
+                         System.out.println(" ");
+                         user.afegirPokemonCapturat(pokemons[posiciopoke]);
+                     } else {
+                         System.out.println("La " + pokeballs[cercaPokeball(pokeballname)].getName() + " ha fallat!");
+                         System.out.println(" ");
+                     }
+                     user.gastarPokeball(cercaPokeball(pokeballname));
+                     captura.restaIntents();
+                     if(captura.getIntents() == 0) {
+                         System.out.println("El " + pokemons[posiciopoke].getName() + " ha escapat...");
+                         System.out.println(" ");
+                     }
+                 }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0);
+                 if(user.getNumPokeballs() == 0) {
+                     System.out.println("No queden Pokeballs...");
+                     System.out.println(" ");
+                 }
+             }
 
          }
       }
     }
+
+    public boolean existeixPokeball(String nompokeball){
+        boolean trobat = false;
+        for(int i = 0; i < pokeballs.length; i++){
+            if(pokeballs[i].getName().equals(nompokeball)){
+                trobat = true;
+            }
+        }
+        return trobat;
+    }
+    public int cercaPokeball(String nompokeball){
+        int posiciopokeball = 0;
+        for(int i = 0; i < pokeballs.length; i++){
+            if(pokeballs[i].getName().equals(nompokeball)){
+               posiciopokeball = i;
+            }
+        }
+        return posiciopokeball;
+    }
+    public int cercaPokemon(String nompokemon){
+        int posiciopokemon = 0;
+        for(int i = 0; i < pokemons.length; i++){
+            if(pokemons[i].getName().equals(nompokemon)){
+                posiciopokemon = i;
+            }
+        }
+        return posiciopokemon;
+    }
+
     public void controlErrorsop4(boolean trobat, boolean llegendary, boolean mitic){
         if (trobat && mitic){
             System.out.println(" ");
@@ -300,6 +363,7 @@ public class ExtreureDades {
             System.out.println(" ");
         }
     }
+
     private static boolean isNumeric(String cadena){
         try {
             Integer.parseInt(cadena);
@@ -344,6 +408,7 @@ public class ExtreureDades {
         }
 
     }
+
     public boolean pokemonDisponible() {
         boolean pokdisp = false;
         for (int i = 0; i < user.getInventari().length && !pokdisp; i++) {
@@ -353,7 +418,6 @@ public class ExtreureDades {
         }
         return pokdisp;
     }
-
 
     public JsonArray getLegend() {
         return legend;
