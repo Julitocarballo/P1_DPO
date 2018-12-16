@@ -51,6 +51,11 @@ public class ExtreureDades {
         Gym g = l.getGym();
         return g;
     }
+    public Recerca getRecerca(Pokemon pokemons){
+        Mythical mitic = (Mythical) pokemons;
+        Recerca r = mitic.getSpecial_research();
+        return  r;
+    }
 
 
 //TODO CAMBIAR ID -1 PER I
@@ -96,7 +101,7 @@ public class ExtreureDades {
 
             case 6:
 
-
+                opcio6();
                 break;
 
             case 7:
@@ -377,6 +382,7 @@ public class ExtreureDades {
     }
 
     public void opcio5(){
+        String pokeballname;
         double dminima=-1;
         int j=0;
         System.out.println("Latitud actual?");
@@ -405,13 +411,96 @@ public class ExtreureDades {
                     Gym g= getGym(pokemons[j]);
                     System.out.println("Gimnas mes proper: "+g.getName()+". Comencant raid...\n");
                     System.out.println("El boss de raid "+pokemons[j].getName()+" us repta!\n");
-
+                    if(user.getNumPokeballs() == 0){
+                        System.out.println("No queden Pokeballs...");
+                        System.out.println(" ");
+                    }else{
+                        do {
+                            System.out.println("Queden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                            do {
+                                pokeballname = sc.nextLine();
+                                if (!existeixPokeball(pokeballname)) {
+                                    System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
+                                }
+                            } while (!existeixPokeball(pokeballname));
+                            System.out.println(" ");
+                            if (captura.capturaPokeLegendary(pokemons[j].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
+                                System.out.println("El Pokémon " + pokemons[j].getName() + " ha estat capturat!");
+                                System.out.println(" ");
+                                user.afegirPokemonCapturat(pokemons[j]);
+                            } else {
+                                System.out.println("La " + pokeballs[cercaPokeball(pokeballname)].getName() + " ha fallat!");
+                                System.out.println(" ");
+                            }
+                            user.gastarPokeball(cercaPokeball(pokeballname));
+                            captura.restaIntents();
+                            if(captura.getIntents() == 0) {
+                                System.out.println("El " + pokemons[j].getName() + " ha escapat...");
+                                System.out.println(" ");
+                            }
+                        }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0);
+                        if(user.getNumPokeballs() == 0) {
+                            System.out.println("No queden Pokeballs...");
+                            System.out.println(" ");
+                        }
+                    }
                 }
             }
         }
 
     }
 
+    public void opcio6(){
+        int z=0, t=0, q=0, primer=0;
+        System.out.println("Recerques Especials:\n");
+        for(int i =0; i<pokemons.length; i++){
+            if(pokemons[i] instanceof Mythical){
+                Recerca r = getRecerca(pokemons[i]);
+                if(printarRecerca(pokemons, user, r)) {
+                    System.out.println("- " + r.getName() + " (" + pokemons[i].getName() + "):");
+                    for (int j = 0; j < r.getQuests().size(); j++) {
+                        z = 0;
+                        while (r.getQuests().get(j).getTarget() != pokemons[z].getId()) {
+                            z++;
+                        }
+                        q = 0;
+                        for (t = 0; t < user.getPokemonsCapturats().size(); t++) {
+
+                            if (pokemons[z].getId() == user.getPokemonsCapturats().get(t).getId()) {
+                                q++;
+                            }
+                        }
+                        if ((q * 100) / r.getQuests().get(j).getQuantity() < 100) {
+                            System.out.println("\t\t* Capturar " + pokemons[z].getName() + "s: " + q + "/" + r.getQuests().get(j).getQuantity() + " (" + (q * 100) / r.getQuests().get(j).getQuantity() + "%)");
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public boolean printarRecerca(Pokemon[] pokemons, User user, Recerca r){
+        int z=0, q=0, t=0;
+        boolean printar=false;
+        for(int j=0; j<r.getQuests().size();j++){
+            z=0;
+            while(r.getQuests().get(j).getTarget() != pokemons[z].getId()){
+                z++;
+            }
+            q=0;
+            for(t=0;t<user.getPokemonsCapturats().size();t++) {
+
+                if (pokemons[z].getId() == user.getPokemonsCapturats().get(t).getId()) {
+                    q++;
+                }
+            }
+            if(printar==false){
+                if((q*100)/r.getQuests().get(j).getQuantity()>0 && (q*100)/r.getQuests().get(j).getQuantity()<100){
+                    printar=true;
+                }
+            }
+        }
+        return printar;
+    }
     public boolean pokemonDisponible() {
         boolean pokdisp = false;
         for (int i = 0; i < user.getInventari().length && !pokdisp; i++) {

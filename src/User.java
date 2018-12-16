@@ -16,6 +16,10 @@ public class User {
         pokemonsCapturats.add(pokemon);
     }
 
+    public ArrayList<Pokemon> getPokemonsCapturats() {
+        return pokemonsCapturats;
+    }
+
     public int[] getInventari() {
         return inventari;
     }
