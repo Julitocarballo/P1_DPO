@@ -291,7 +291,10 @@ public class ExtreureDades {
                          if (!existeixPokeball(pokeballname)) {
                              System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
                          }
-                     } while (!existeixPokeball(pokeballname));
+                         if(user.getInventari()[cercaPokeball(pokeballname)] == 0){
+                             System.out.println("No té Pokéballs d'aquest tipus, quin tipus vol fer servir?");
+                         }
+                     } while (!existeixPokeball(pokeballname) || user.getInventari()[cercaPokeball(pokeballname)] == 0);
                      System.out.println(" ");
                      if (captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
                          System.out.println("El Pokémon " + pokemons[posiciopoke].getName() + " ha estat capturat!");
@@ -307,7 +310,7 @@ public class ExtreureDades {
                          System.out.println("El " + pokemons[posiciopoke].getName() + " ha escapat...");
                          System.out.println(" ");
                      }
-                 }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0);
+                 }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0 && !captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate()));
                  if(user.getNumPokeballs() == 0) {
                      System.out.println("No queden Pokeballs...");
                      System.out.println(" ");
