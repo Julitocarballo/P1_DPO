@@ -435,7 +435,7 @@ public class ExtreureDades {
                             }
                         }
                         if ((q * 100) / r.getQuests().get(j).getQuantity() < 100) {
-                            System.out.println("\t\t* Capturar " + pokemons[z].getName() + "s: " + q + "/" + r.getQuests().get(j).getQuantity() + " (" + (q * 100) / r.getQuests().get(j).getQuantity() + "%)");
+                            System.out.println("\t\t* Capturar " + pokemons[z].getName() + "s:  " + q + "/" + r.getQuests().get(j).getQuantity() + " (" + (q * 100) / r.getQuests().get(j).getQuantity() + "%)");
                         }
                     }
                 }
