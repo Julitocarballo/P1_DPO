@@ -68,7 +68,7 @@ public class Menu {
         return false;
     }
 
-    public void mostraMenu2(Pokeball[] pokeballs){
+    public char mostraMenu2(Pokeball[] pokeballs){
         char lletra = 97;
         System.out.println("Pokéballs disponibles:");
         for(int i = 0; i < pokeballs.length && lletra < 123; i++){
@@ -79,6 +79,7 @@ public class Menu {
         System.out.println("    e) Sortir sense comprar");
         System.out.println(" ");
         System.out.println("Esculli una opció:");
+        return lletra;
     }
 
 }

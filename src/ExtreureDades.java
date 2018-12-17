@@ -168,41 +168,47 @@ public class ExtreureDades {
     }
 
     public void opcio2(Menu menu) {
-        char op;
+        char op, lletra;
         int unitats;
         boolean error = false;
 
         System.out.println(" ");
         System.out.println("Teniu " + user.getMonedes() + " monedes.");
         System.out.println(" ");
-        menu.mostraMenu2(pokeballs);
+        lletra = menu.mostraMenu2(pokeballs);
         op = sc.next().charAt(0);
-
+        if(Character.isLetter(lletra)){
+            if(Character.isUpperCase(lletra)){
+                lletra = Character.toLowerCase(lletra);
+            }
+        }
         if(Character.isLetter(op)){
             if(Character.isUpperCase(op)){
                 op = Character.toLowerCase(op);
             }
-            System.out.println("Quantes unitats en vol comprar?");
-            unitats = sc.nextInt();
-            System.out.println(" ");
-            if(unitats < 0){
-                System.out.println("Error, el nombre d'unitats no pot ser negatiu!");
-                System.out.println(" ");
-            }else{
-                error = actualitzaInventari(unitats, op);
-                if(error){
-                    System.out.println("Ho sentim, però no disposa de suficients monedes");
+            if(lletra == op){
+                System.out.println("\nFins aviat!\n");
+            }else {
+                if(lletra<op){
+                    System.out.println(("\nError, opcio incorrecte\n"));
+                }else {
+                    System.out.println("Quantes unitats en vol comprar?");
+                    unitats = sc.nextInt();
                     System.out.println(" ");
+                    if (unitats < 0) {
+                        System.out.println("Error, el nombre d'unitats no pot ser negatiu!");
+                        System.out.println(" ");
+                    } else {
+                        error = actualitzaInventari(unitats, op);
+                        if (error) {
+                            System.out.println("Ho sentim, però no disposa de suficients monedes");
+                            System.out.println(" ");
+                        }
+                    }
                 }
             }
         }else{
-            if(op == 'e'){
-                System.out.println("Sortint de l'opció 2");
-                System.out.println(" ");
-            }else{
-                System.out.println("Error, aquesta opció no existeix");
-                System.out.println(" ");
-            }
+            System.out.println(("\nError, opcio incorrecte\n"));
         }
 
     }
