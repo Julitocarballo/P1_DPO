@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class ExtreureDades {
     private Menu menu;
-    private Captura captura;
     private LlegirJson llegirjson = new LlegirJson();
     private Pokemon[] pokemons;
     private Pokeball[] pokeballs;
@@ -13,6 +12,7 @@ public class ExtreureDades {
     private JsonArray legend;
     Haversine haversine = new Haversine();
     private DecimalFormat df = new DecimalFormat("#0.00");
+    Captura captura = new Captura();
 
     private Scanner sc;
 
@@ -234,10 +234,11 @@ public class ExtreureDades {
     }
 
     public void opcio4(){
+        sc.nextLine();
         boolean trobat = false, mitic = false, llegendary= false;
         String pokename, pokeballname;
         int pokeid = 0, posiciopoke = 0;
-        captura = new Captura();
+
 
 
       if(!pokemonDisponible()){
@@ -320,6 +321,7 @@ public class ExtreureDades {
                      System.out.println("No queden Pokeballs...");
                      System.out.println(" ");
                  }
+                 captura.setIntents();
              }
 
          }
@@ -392,6 +394,7 @@ public class ExtreureDades {
         }else {
             System.out.println("Longitud_actual");
             double longitud_actual = sc.nextDouble();
+            sc.nextLine();
             if(longitud_actual<=-180 || longitud_actual>=180) {
                 System.out.println("Error, longitud incorrecte (-180,180)");
             }else {
@@ -422,7 +425,10 @@ public class ExtreureDades {
                                 if (!existeixPokeball(pokeballname)) {
                                     System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
                                 }
-                            } while (!existeixPokeball(pokeballname));
+                                if(user.getInventari()[cercaPokeball(pokeballname)] == 0){
+                                    System.out.println("No té Pokéballs d'aquest tipus, quin tipus vol fer servir?");
+                                }
+                            } while (!existeixPokeball(pokeballname) || user.getInventari()[cercaPokeball(pokeballname)] == 0);
                             System.out.println(" ");
                             if (captura.capturaPokeLegendary(pokemons[j].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
                                 System.out.println("El Pokémon " + pokemons[j].getName() + " ha estat capturat!");
@@ -438,11 +444,12 @@ public class ExtreureDades {
                                 System.out.println("El " + pokemons[j].getName() + " ha escapat...");
                                 System.out.println(" ");
                             }
-                        }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0);
+                        }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0 && !captura.capturaPokeLegendary(pokemons[j].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate()));
                         if(user.getNumPokeballs() == 0) {
                             System.out.println("No queden Pokeballs...");
                             System.out.println(" ");
                         }
+                        captura.setIntents();
                     }
                 }
             }

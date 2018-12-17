@@ -16,6 +16,10 @@ public class Captura {
         this.intents--;
     }
 
+    public void setIntents() {
+        this.intents = 5;
+    }
+
     public boolean capturaPokeSalvatge(int pm, int pb){
         boolean capturat = false;
         double probabilitat;
