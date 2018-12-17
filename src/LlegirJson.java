@@ -82,7 +82,7 @@ public class LlegirJson {
     public Mythical getMitic(int id, int i, Pokemon pokemon, JsonArray llegenmitics){
         String kind = llegenmitics.get(i).getAsJsonObject().get("kind").getAsString();
         JsonObject special_research = llegenmitics.get(i).getAsJsonObject().get("special_research").getAsJsonObject();
-        Recerca sr = new Recerca (special_research.get("name").getAsString(), special_research.get("quests").getAsJsonArray());
+        Recerca sr = new Recerca (special_research.get("name").getAsString(), special_research.get("quests").getAsJsonArray(),false);
         Mythical mitic = new Mythical(id, kind, sr, pokemon.getCapture_rate(), pokemon.getName());
         return mitic;
     }

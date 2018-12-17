@@ -281,15 +281,15 @@
         "quests": [
         {
             "target": 337,
-            "quantity": 10
+            "quantity": 1
         },
         {
             "target": 338,
-            "quantity": 10
+            "quantity": 2
         },
         {
             "target": 351,
-            "quantity": 10
+            "quantity": 3
         }
         ]
     }

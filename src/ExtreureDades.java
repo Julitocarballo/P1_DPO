@@ -312,6 +312,25 @@ public class ExtreureDades {
                          System.out.println("El Pokémon " + pokemons[posiciopoke].getName() + " ha estat capturat!");
                          System.out.println(" ");
                          user.afegirPokemonCapturat(pokemons[posiciopoke]);
+                         pokeid = apareixerMitic();
+                         if(pokeid != -1){
+                             System.out.println("Recerca Especial completada: Se t'apareix el mític "+pokemons[pokeid].getName()+"!\n");
+                             System.out.println("\nQueden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                             do {
+                                 pokeballname = sc.nextLine();
+                                 if (!existeixPokeball(pokeballname)) {
+                                     System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
+                                 }
+                                 if(user.getInventari()[cercaPokeball(pokeballname)] == 0){
+                                     System.out.println("No té Pokéballs d'aquest tipus, quin tipus vol fer servir?");
+                                 }
+                             } while (!existeixPokeball(pokeballname) || user.getInventari()[cercaPokeball(pokeballname)] == 0);
+                             if(captura.capturaPokeMitic(pokemons[pokeid].getCapture_rate(),pokeballs[cercaPokeball(pokeballname)].getCapture_rate())){
+                                 System.out.println("El Pokémon " + pokemons[pokeid].getName() + " ha estat capturat!");
+                                 System.out.println(" ");
+                                 user.afegirPokemonCapturat(pokemons[pokeid]);
+                             }
+                         }
                      } else {
                          System.out.println("La " + pokeballs[cercaPokeball(pokeballname)].getName() + " ha fallat!");
                          System.out.println(" ");
@@ -329,9 +348,34 @@ public class ExtreureDades {
                  }
                  captura.setIntents();
              }
-
          }
       }
+    }
+    public int apareixerMitic(){
+        int q=0, questcompleta=-1;
+        boolean mitic=true;
+        for(int i=0; i<pokemons.length;i++){
+            if(pokemons[i] instanceof Mythical){
+                Recerca r = getRecerca(pokemons[i]);
+                for(int z=0; z<r.getQuests().size();z++) {
+                    for (int j = 0; j < user.getPokemonsCapturats().size(); j++) {
+                        if (user.getPokemonsCapturats().get(j).getId() == r.getQuests().get(z).getTarget()) {
+                            q++;
+                        }
+                    }
+                    if(q < r.getQuests().get(z).getQuantity()){
+                        mitic=false;
+                    }
+                    q=0;
+                }
+                if(mitic && !r.isCompleta()){
+                    questcompleta=i;
+                    r.setCompleta(true);
+                }
+            }
+            mitic=true;
+        }
+        return questcompleta;
     }
 
     public boolean existeixPokeball(String nompokeball){
