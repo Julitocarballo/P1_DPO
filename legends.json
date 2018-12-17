@@ -334,7 +334,7 @@
         "name": "Memorial Plaza",
         "location": {
             "longitude": 38.200044,
-            "latitude": -90.400156
+            "latitude": -89
         }
     }
 },
@@ -345,7 +345,7 @@
         "name": "Lest We Forget",
         "location": {
             "longitude": 37.799976,
-            "latitude": -89.699901
+            "latitude": -89
         }
     }
 },

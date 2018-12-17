@@ -436,7 +436,7 @@ public class ExtreureDades {
     public void opcio5(){
         String pokeballname;
         double dminima=-1;
-        int j=0;
+        int j=0, pokeid=0;
         System.out.println("Latitud actual?");
         double latitud_actual = sc.nextDouble();
         if(latitud_actual<=-90 || latitud_actual>=90){
@@ -484,6 +484,25 @@ public class ExtreureDades {
                                 System.out.println("El Pokémon " + pokemons[j].getName() + " ha estat capturat!");
                                 System.out.println(" ");
                                 user.afegirPokemonCapturat(pokemons[j]);
+                                pokeid = apareixerMitic();
+                                if(pokeid != -1){
+                                    System.out.println("Recerca Especial completada: Se t'apareix el mític "+pokemons[pokeid].getName()+"!\n");
+                                    System.out.println("\nQueden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                                    do {
+                                        pokeballname = sc.nextLine();
+                                        if (!existeixPokeball(pokeballname)) {
+                                            System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
+                                        }
+                                        if(user.getInventari()[cercaPokeball(pokeballname)] == 0){
+                                            System.out.println("No té Pokéballs d'aquest tipus, quin tipus vol fer servir?");
+                                        }
+                                    } while (!existeixPokeball(pokeballname) || user.getInventari()[cercaPokeball(pokeballname)] == 0);
+                                    if(captura.capturaPokeMitic(pokemons[pokeid].getCapture_rate(),pokeballs[cercaPokeball(pokeballname)].getCapture_rate())){
+                                        System.out.println("El Pokémon " + pokemons[pokeid].getName() + " ha estat capturat!");
+                                        System.out.println(" ");
+                                        user.afegirPokemonCapturat(pokemons[pokeid]);
+                                    }
+                                }
                             } else {
                                 System.out.println("La " + pokeballs[cercaPokeball(pokeballname)].getName() + " ha fallat!");
                                 System.out.println(" ");
@@ -551,7 +570,7 @@ public class ExtreureDades {
                 }
             }
             if(printar==false){
-                if((q*100)/r.getQuests().get(j).getQuantity()>0 && (q*100)/r.getQuests().get(j).getQuantity()<100){
+                if((q*100)/r.getQuests().get(j).getQuantity()>0 && (q*100)/r.getQuests().get(j).getQuantity()<=100){
                     printar=true;
                 }
             }
