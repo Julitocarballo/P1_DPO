@@ -105,7 +105,7 @@ public class ExtreureDades {
                 break;
 
             case 7:
-
+                opcio7();
                 break;
 
             case 8:
@@ -554,6 +554,22 @@ public class ExtreureDades {
             }
         }
     }
+
+    public void opcio7(){
+        /*<!doctype html>
+        <html lang = "es">
+            <head>
+                <meta charset = "UTF-8">
+                <title>Fitxer bàsic</title>
+                <meta name= "Profesor Oak" content = "Julio Carballo López - julio.carballo\nArnaud Arens - arnaud.arens">
+            </head>
+            <body>
+                //
+            </body>
+        </html>*/
+
+    }
+
     public boolean printarRecerca(Pokemon[] pokemons, User user, Recerca r){
         int z=0, q=0, t=0;
         boolean printar=false;
