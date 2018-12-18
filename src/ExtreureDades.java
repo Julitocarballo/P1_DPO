@@ -1,5 +1,8 @@
 import com.google.gson.JsonArray;
 
+import javax.swing.text.html.HTML;
+import java.awt.*;
+import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -13,6 +16,7 @@ public class ExtreureDades {
     Haversine haversine = new Haversine();
     private DecimalFormat df = new DecimalFormat("#0.00");
     Captura captura = new Captura();
+    Html html = new Html();
 
     private Scanner sc;
 
@@ -556,18 +560,13 @@ public class ExtreureDades {
     }
 
     public void opcio7(){
-        /*<!doctype html>
-        <html lang = "es">
-            <head>
-                <meta charset = "UTF-8">
-                <title>Fitxer bàsic</title>
-                <meta name= "Profesor Oak" content = "Julio Carballo López - julio.carballo\nArnaud Arens - arnaud.arens">
-            </head>
-            <body>
-                //
-            </body>
-        </html>*/
 
+        FileWriter fileWriter = html.fitxerCapturats(pokemonsCapturats());
+
+    }
+
+    public int pokemonsCapturats(){
+        return user.getPokemonsCapturats().size();
     }
 
     public boolean printarRecerca(Pokemon[] pokemons, User user, Recerca r){
