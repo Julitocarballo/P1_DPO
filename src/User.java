@@ -20,6 +20,21 @@ public class User {
         return pokemonsCapturats;
     }
 
+   /* public int[] retornapokeRepetits(Pokemon[] pokemons, int i){
+        int[] contadorIndex = new int[2];
+        boolean trobat = false;
+        for(i = i; i < pokemons.length && !trobat; i++){
+            for(int j = 0; j < pokemonsCapturats.size(); j++){
+                if(pokemons[i].getName().equals(pokemonsCapturats.get(j).getName())){
+                    trobat = true;
+                    contadorIndex[0]++;
+                    contadorIndex[1] = pokemons[i].getId();
+                }
+            }
+        }
+        return contadorIndex;
+    }
+*/
     public int[] getInventari() {
         return inventari;
     }

@@ -249,8 +249,6 @@ public class ExtreureDades {
         String pokename, pokeballname;
         int pokeid = 0, posiciopoke = 0;
 
-
-
       if(!pokemonDisponible()){
           System.out.println(" ");
           System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
