@@ -22,7 +22,7 @@ public class LlegirHtml {
             line = buff.readLine();
             text.append(line + "\n");
         } while (line != null);
-
+        System.out.println(text.toString());
         return text.toString();
     }
 }
