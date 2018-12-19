@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class Html {
     private LlegirHtml lh = new LlegirHtml();
+    private Pokemon[] pokemons;
+    private ArrayList<Pokemon> pokemonsCapturats;
     public Html() {
     }
 
@@ -28,7 +30,14 @@ public class Html {
             escritura.println("\t<body>");
 
             //String jsonAPI= lh.llegirHtml("https://pokeapi.co/api/v2/pokemon/id.png");
-            escritura.println("<img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/474.png\"\n\talt=\"Penis\"/>");
+            for(int i = 0; i< pokemons.length;i++) {
+                int repetit = retornapokeRepetits(pokemons[i], pokemonsCapturats);
+                if (repetit != 0) {
+                    escritura.println("<p><b><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"No s'ha pogut trobar cap foto\"/>");
+                    escritura.println(pokemons[i].getName()+"</b> x "+repetit+"</p>");
+
+                }
+            }
 
             /*System.out.println(jsonAPI);
             JsonParser parser = new JsonParser();
@@ -44,6 +53,28 @@ public class Html {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+
+
+    }
+    public void getPokemons(Pokemon[] pokemons){
+        this.pokemons=pokemons;
+    }
+    public void getPokemonsCapturats(ArrayList<Pokemon> poke){
+        this.pokemonsCapturats=poke;
+    }
+    public int retornapokeRepetits(Pokemon pokemons, ArrayList<Pokemon> pokemonsCapturats){
+        int num=0;
+
+        if(pokemonsCapturats.isEmpty()){
+            return 0;
+        }else{
+            for (int i =0;i<pokemonsCapturats.size();i++){
+                if(pokemonsCapturats.get(i).getId() == pokemons.getId()){
+                    num++;
+                }
+            }
+            return num;
         }
     }
 }

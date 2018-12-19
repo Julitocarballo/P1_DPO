@@ -4,6 +4,7 @@ import javax.swing.text.html.HTML;
 import java.awt.*;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExtreureDades {
@@ -23,6 +24,7 @@ public class ExtreureDades {
     public ExtreureDades() {
         sc = new Scanner(System.in);
     }
+
 
     public void setPokemons(){
         this.pokemons = llegirjson.extreurePokemon();
@@ -73,6 +75,7 @@ public class ExtreureDades {
     public Pokemon[] getPokemons() {
         return pokemons;
     }
+
 
     public void execute(Menu menu) {
         int opcio = menu.getOpcio();
@@ -558,7 +561,8 @@ public class ExtreureDades {
     }
 
     public void opcio7(){
-
+        html.getPokemons(pokemons);
+        html.getPokemonsCapturats(user.getPokemonsCapturats());
         FileWriter fileWriter = html.fitxerCapturats(pokemonsCapturats());
 
     }
