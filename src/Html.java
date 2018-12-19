@@ -15,7 +15,7 @@ public class Html {
     public Html() {
     }
 
-    public FileWriter fitxerCapturats(int pokemonscapturats){
+    public void fitxerCapturats(int pokemonscapturats){
         try{
             FileWriter filewriter = new FileWriter("capturats.html");
             PrintWriter escritura = new PrintWriter(filewriter);
@@ -33,8 +33,7 @@ public class Html {
             for(int i = 0; i< pokemons.length;i++) {
                 int repetit = retornapokeRepetits(pokemons[i], pokemonsCapturats);
                 if (repetit != 0) {
-                    escritura.println("<p><b><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"No s'ha pogut trobar cap foto\"/>");
-                    escritura.println(pokemons[i].getName()+"</b> x "+repetit+"</p>");
+                    escritura.println("<p><b><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"No s'ha pogut trobar cap foto\"/>"+pokemons[i].getName()+"</b> x "+repetit+"</p>");
 
                 }
             }
@@ -49,12 +48,42 @@ public class Html {
             escritura.println("\t</body>");
             escritura.println("</html>");
             filewriter.close();
-            return filewriter;
         } catch (Exception e){
             e.printStackTrace();
-            return null;
         }
 
+
+    }
+    public void fitxerDetalls(Pokemon pokemons){
+        try{
+            FileWriter filewriter = new FileWriter("capturats.html");
+            PrintWriter escritura = new PrintWriter(filewriter);
+
+            escritura.println("<!doctype html>");
+            escritura.println("<html lang= \"es\">");
+            escritura.println("\t<head>");
+            escritura.println("\t\t<meta charset=\"UTF-8\">");
+            escritura.println("\t\t<h1>"+pokemons.getName()+" ("+pokemons.getId()+")</h1>");
+            escritura.println("\t\t<meta name=\"author\" content = \"Julio Carballo López - julio.carballo Arnaud Arens - arnaud.arens\">");
+            escritura.println("\t</head>");
+            escritura.println("\t<body>");
+
+            //String jsonAPI= lh.llegirHtml("https://pokeapi.co/api/v2/pokemon/id.png");
+
+
+            /*System.out.println(jsonAPI);
+            JsonParser parser = new JsonParser();
+            JsonElement foto = parser.parse(jsonAPI);
+            JsonObject jsonObject = foto.getAsJsonObject();
+            JsonObject fotopoke = jsonObject.get("sprites").getAsJsonObject();
+            String URL = fotopoke.get("front_default").getAsString();
+            System.out.println(URL);*/
+            escritura.println("\t</body>");
+            escritura.println("</html>");
+            filewriter.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
     public void getPokemons(Pokemon[] pokemons){
