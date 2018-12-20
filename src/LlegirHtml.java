@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -9,20 +8,19 @@ import java.net.URL;
 public class LlegirHtml {
     public LlegirHtml() {
     }
-    public String llegirHtml(String address) throws Exception{
-
-        URL page = new URL(address);
-        StringBuffer text = new StringBuffer();
-        HttpURLConnection conn = (HttpURLConnection) page.openConnection();
-        conn.connect();
-        InputStreamReader in = new InputStreamReader((InputStream) conn.getContent());
-        BufferedReader buff = new BufferedReader(in);
+    public BufferedReader llegirHtml(String address) throws Exception{
+        HttpURLConnection c = null;
+        URL u = new URL(address);
+        c = (HttpURLConnection) u.openConnection();
+        c.setRequestMethod("GET");
+        c.connect();
+        BufferedReader br = new BufferedReader((new InputStreamReader(c.getInputStream())));
+       /* StringBuilder sb = new StringBuilder();
         String line;
-        do {
-            line = buff.readLine();
-            text.append(line + "\n");
-        } while (line != null);
-        System.out.println(text.toString());
-        return text.toString();
+        while ((line = br.readLine()) != null) {
+            sb.append(line+"\n");
+        }
+        br.close();*/
+        return br;
     }
 }

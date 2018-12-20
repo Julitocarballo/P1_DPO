@@ -68,16 +68,9 @@ public class Html {
             escritura.println("\t</head>");
             escritura.println("\t<body>");
 
-            //String jsonAPI= lh.llegirHtml("https://pokeapi.co/api/v2/pokemon/id.png");
-
-
-            /*System.out.println(jsonAPI);
             JsonParser parser = new JsonParser();
-            JsonElement foto = parser.parse(jsonAPI);
-            JsonObject jsonObject = foto.getAsJsonObject();
-            JsonObject fotopoke = jsonObject.get("sprites").getAsJsonObject();
-            String URL = fotopoke.get("front_default").getAsString();
-            System.out.println(URL);*/
+            JsonElement je = parser.parse(lh.llegirHtml("https://pokeapi.co/api/v2/pokemon/24/"));
+
             escritura.println("\t</body>");
             escritura.println("</html>");
             filewriter.close();
