@@ -563,56 +563,42 @@ public class ExtreureDades {
     public void opcio7(){
         html.getPokemons(pokemons);
         html.getPokemonsCapturats(user.getPokemonsCapturats());
-        html.fitxerCapturats(pokemonsCapturats());
+        html.fitxerCapturats(user.pokemonsCapturats());
 
     }
 
-    public int pokemonsCapturats(){
-        return user.getPokemonsCapturats().size();
-    }
+
 
     public void opcio8(){
         int pokeid=0, posiciopoke=-1;
-        boolean trobat=false, mitic=false, llegendary=false;
+        boolean trobat=false;
         System.out.println("De quin Pokemon vol informació?");
         String pokename = sc.nextLine();
         if(isNumeric(pokename)){
             pokeid = Integer.parseInt(pokename);
             for (int i = 0; i < pokemons.length; i++) {
-                if (pokemons[i].getId() == pokeid && !(pokemons[i] instanceof Legendary) && !(pokemons[i] instanceof Mythical)){
+                if (pokemons[i].getId() == pokeid){
                     trobat = true;
                     posiciopoke = i;
-                }else{
-                    if(pokemons[i].getId() == pokeid && (pokemons[i] instanceof Mythical)){
-                        trobat = true;
-                        mitic = true;
-                    }
-                    if(pokemons[i].getId() == pokeid && (pokemons[i] instanceof Legendary)){
-                        trobat = true;
-                        llegendary = true;
-                    }
                 }
             }
         }else{
             for (int i = 0; i < pokemons.length; i++) {
-                if (pokemons[i].getName().equals(pokename) && !(pokemons[i] instanceof Legendary) && !(pokemons[i] instanceof Mythical)) {
+                if (pokemons[i].getName().equals(pokename)) {
                     trobat = true;
                     posiciopoke = i;
-                }else{
-                    if(pokemons[i].getName().equals(pokename) && (pokemons[i] instanceof Mythical)){
-                        trobat = true;
-                        mitic = true;
-                    }
-                    if(pokemons[i].getName().equals(pokename) && (pokemons[i] instanceof Legendary)){
-                        trobat = true;
-                        llegendary = true;
-                    }
                 }
             }
         }
-        controlErrorsop4(trobat, llegendary, mitic);
-        if(trobat && !mitic && !llegendary) {
+        if(!trobat) {
+            System.out.println(" ");
+            System.out.println("Ho sentim, però aquest Pokémon no existeix (encara).");
+
+        }else{
             html.fitxerDetalls(pokemons[posiciopoke]);
+            System.out.println(" ");
+            System.out.println("Fitxer HTML generat.");
+
         }
     }
 

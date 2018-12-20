@@ -12,6 +12,10 @@ public class User {
         pokemonsCapturats = new ArrayList<Pokemon>();
     }
 
+    public int pokemonsCapturats(){
+        return getPokemonsCapturats().size();
+    }
+
     public void afegirPokemonCapturat(Pokemon pokemon){
         pokemonsCapturats.add(pokemon);
     }

@@ -16,6 +16,7 @@ public class Html {
     }
 
     public void fitxerCapturats(int pokemonscapturats){
+
         try{
             FileWriter filewriter = new FileWriter("capturats.html");
             PrintWriter escritura = new PrintWriter(filewriter);
@@ -24,7 +25,7 @@ public class Html {
             escritura.println("<html lang= \"es\">");
             escritura.println("\t<head>");
             escritura.println("\t\t<meta charset=\"UTF-8\">");
-            escritura.println("\t\t<h1>Pokémons Capturats: "+pokemonscapturats+"</h1>");
+            escritura.println("\t\t<h1>Pokémons capturats: "+pokemonscapturats+"</h1>");
             escritura.println("\t\t<meta name=\"author\" content = \"Julio Carballo López - julio.carballo Arnaud Arens - arnaud.arens\">");
             escritura.println("\t</head>");
             escritura.println("\t<body>");
@@ -33,21 +34,15 @@ public class Html {
             for(int i = 0; i< pokemons.length;i++) {
                 int repetit = retornapokeRepetits(pokemons[i], pokemonsCapturats);
                 if (repetit != 0) {
-                    escritura.println("<p><b><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"No s'ha pogut trobar cap foto\"/>"+pokemons[i].getName()+"</b> x "+repetit+"</p>");
+                    escritura.println("<p><b><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"No s'ha pogut trobar cap foto\"/><font style=\"text-transform: capitalize;\">"+pokemons[i].getName()+"</font></b> x "+repetit+"</p>");
 
                 }
             }
 
-            /*System.out.println(jsonAPI);
-            JsonParser parser = new JsonParser();
-            JsonElement foto = parser.parse(jsonAPI);
-            JsonObject jsonObject = foto.getAsJsonObject();
-            JsonObject fotopoke = jsonObject.get("sprites").getAsJsonObject();
-            String URL = fotopoke.get("front_default").getAsString();
-            System.out.println(URL);*/
             escritura.println("\t</body>");
             escritura.println("</html>");
             filewriter.close();
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -63,14 +58,29 @@ public class Html {
             escritura.println("<html lang= \"es\">");
             escritura.println("\t<head>");
             escritura.println("\t\t<meta charset=\"UTF-8\">");
-            escritura.println("\t\t<h1>"+pokemons.getName()+" ("+pokemons.getId()+")</h1>");
+            escritura.println("\t\t<h1><font style=\"text-transform: capitalize;\">"+pokemons.getName()+"</font> ("+pokemons.getId()+")</h1>");
             escritura.println("\t\t<meta name=\"author\" content = \"Julio Carballo López - julio.carballo Arnaud Arens - arnaud.arens\">");
             escritura.println("\t</head>");
             escritura.println("\t<body>");
 
             JsonParser parser = new JsonParser();
-            JsonElement je = parser.parse(lh.llegirHtml("https://pokeapi.co/api/v2/pokemon/24/"));
+            JsonElement je = parser.parse(lh.llegirHtml("https://pokeapi.co/api/v2/pokemon/"+pokemons.getId()+"/"));
+            JsonElement je2 = parser.parse(lh.llegirHtml("https://pokeapi.co/api/v2/pokemon-species/"+pokemons.getId()+"/"));
+            JsonObject jsonObject = je.getAsJsonObject();
+            JsonObject jsonObject2 = je2.getAsJsonObject();
+            escritura.println("<p><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons.getId()+".png\" width=\"250px\" height=\"250px\"\n\talt=\"No s'ha pogut trobar cap foto\"/></p>");
 
+            JsonArray jsonArray =jsonObject2.get("flavor_text_entries").getAsJsonArray();
+            String descripcio = jsonArray.get(3).getAsJsonObject().get("flavor_text").getAsString();
+            float altura= jsonObject.get("height").getAsFloat();
+            float pes = jsonObject.get("weight").getAsFloat();
+            int xp = jsonObject.get("base_experience").getAsInt();
+            escritura.println("<p>"+descripcio+"</p>");
+            escritura.println("<ul>");
+            escritura.println("\t<li> "+altura/10+" m.</li>");
+            escritura.println("\t<li> "+pes/100+" kg.</li>");
+            escritura.println("\t<li> "+xp+" xp.</li>");
+            escritura.println("</ul>");
             escritura.println("\t</body>");
             escritura.println("</html>");
             filewriter.close();

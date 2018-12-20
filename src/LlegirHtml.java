@@ -15,12 +15,6 @@ public class LlegirHtml {
         c.setRequestMethod("GET");
         c.connect();
         BufferedReader br = new BufferedReader((new InputStreamReader(c.getInputStream())));
-       /* StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            sb.append(line+"\n");
-        }
-        br.close();*/
         return br;
     }
 }
