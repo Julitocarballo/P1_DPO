@@ -252,7 +252,7 @@ public class ExtreureDades {
         String pokename, pokeballname;
         int pokeid = 0, posiciopoke = 0;
 
-      if(!pokemonDisponible()){
+      if(user.getNumPokeballs() == 0){
           System.out.println(" ");
           System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
           System.out.println(" ");
@@ -277,6 +277,7 @@ public class ExtreureDades {
                   }
               }
           }else{
+              pokename = pokename.toLowerCase();
               for (int i = 0; i < pokemons.length; i++) {
                   if (pokemons[i].getName().equals(pokename) && !(pokemons[i] instanceof Legendary) && !(pokemons[i] instanceof Mythical)) {
                       trobat = true;
@@ -305,6 +306,7 @@ public class ExtreureDades {
                      System.out.println("Queden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
                      do {
                          pokeballname = sc.nextLine();
+                         pokeballname = pokeballname.toLowerCase();
                          if (!existeixPokeball(pokeballname)) {
                              System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
                          }
@@ -625,21 +627,10 @@ public class ExtreureDades {
         }
         return printar;
     }
-    public boolean pokemonDisponible() {
-        boolean pokdisp = false;
-        for (int i = 0; i < user.getInventari().length && !pokdisp; i++) {
-            if (user.getInventari()[i] != 0){
-                pokdisp = true;
-            }
-        }
-        return pokdisp;
-    }
 
     public JsonArray getLegend() {
         return legend;
     }
-
-
 
 }
 
