@@ -1,72 +1,80 @@
 import com.google.gson.JsonArray;
-
-import javax.swing.text.html.HTML;
-import java.awt.*;
-import java.io.FileWriter;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Scanner;
-
+//Classe que s’encarregarà de tota la lògica del joc així com executar i gestionar totes les opcions d’aquest.
 public class ExtreureDades {
+    //Atribut que permet utilitzar els mètodes de la classe atribut sense necessitat de crear un objecte. Ens permet accedir a tots els menús de la pràctica.
     private Menu menu;
+    //Atribut que crea un nou objecte de la classe LlegirJson que ens permetrà emmagatzemar tota la informació dels fitxers Json.
     private LlegirJson llegirjson = new LlegirJson();
+    //Array de la classe Pokémon en el qual es guardarà tota la informació de cada pokémon.
     private Pokemon[] pokemons;
+    //Array de la classe Pokéball en la qual es guardarà tota la informació de cada tipus de pokéball.
     private Pokeball[] pokeballs;
+    //Atribut que emmagatzema un objecte de la classe User que ens permetrà accedir a tots els seus mètodes i obtenir informació sobre el seu inventari, pokémons capturats i monedes.
     private User user;
+    //Atribut que emmagatzema tota la informació del json de pokémons llegendaris i mítics que serà emmagatzemada juntament amb el array de pokémons (amb el seu pokémon corresponent).
     private JsonArray legend;
+    //Objecte de la classe Haversine que s’utilitzarà per calcular quin gimnàs està més aprop de les nostres coordenades.
     Haversine haversine = new Haversine();
+    //Objecte que s’utilitzarà per rebaixar en 2 el numero de decimals que apareix en una variable de tipus float.
     private DecimalFormat df = new DecimalFormat("#0.00");
+    //Objecte de la classe captura que s’utilitzarà sempre que es vulgui capturar un pokémon.
     Captura captura = new Captura();
+    //Objecte de la classe Html que s’utilitzarà per generar els fitxers html de les opcions 7 i 8.
     Html html = new Html();
 
     private Scanner sc;
-
+    //Constructor que crea un objecte Scanner per poder introduir informació a traves del teclat quan es creï un objecte d’aquesta classe.
     public ExtreureDades() {
         sc = new Scanner(System.in);
     }
 
-
+    //Mètode que guarda tota la informació del fitxer poke.json a l’array de pokémons.
     public void setPokemons(){
         this.pokemons = llegirjson.extreurePokemon();
     }
-
+    //Mètode que extreu la informació del fitxer legends.json i la emmagatzema com un array que serà tractat posteriorment.
     public void setLegend(){
         this.legend = llegirjson.extreureArray();
     }
-
+    //Mètode que guarda tota la informació del fitxer poke.json al array de pokéballs.
     public void setPokeballs(){
         this.pokeballs = llegirjson.getPokeball();
     }
-
+    //Mètode que crea un objecte de la classe usuari.
     public void creaUsuari(){
        user = new User(pokeballs.length);
     }
-
+    //Mètode que retorna la ubicació d’un gimnàs d’un pokémon llegendari concret.
     public Location getLocation(Pokemon pokemons){
         Legendary l= (Legendary) pokemons;
         Gym g = l.getGym();
         Location location= g.getLocation();
         return location;
     }
+    //Mètode que retorna la informació de un gimnàs d’un pokémon llegendari concret.
     public Gym getGym(Pokemon pokemons){
         Legendary l= (Legendary) pokemons;
         Gym g = l.getGym();
         return g;
     }
+    //Mètode que retorna la informació de una recerca especial de un pokémon mític concret.
     public Recerca getRecerca(Pokemon pokemons){
         Mythical mitic = (Mythical) pokemons;
         Recerca r = mitic.getSpecial_research();
         return  r;
     }
-
+    //Mètode que introdueix la informació de un pokémon llegendari al seu pokémon corresponent en el array de pokémons.
     public void afegirLlegendari(int i, int id){
         pokemons[id - 1] = llegirjson.getLlegendari(id, i, pokemons[id - 1], legend);
     }
+    //Mètode que introdueix la informació de un pokémon mític al seu pokémon corresponent en el array de pokémons.
     public void afegirMitic(int i, int id){
         pokemons[id - 1] = llegirjson.getMitic(id, i, pokemons[id - 1], legend);
     }
 
-
+    //Mètode que rep tota la informació corresponent al menú, concretament s’utilitza per veure quina opció ha triat l’usuari, en conseqüència, gracies a un switch fa una crida a l’opció escollida.
     public void execute(Menu menu) {
         int opcio = menu.getOpcio();
         switch (opcio) {
@@ -114,7 +122,7 @@ public class ExtreureDades {
                 break;
         }
     }
-
+    //Mètode que demana al usuari quantes monedes vol comprar, comprova que el numero introduït sigui correcte, li mostra per pantalla quants diners li costarà adquirir aquestes monedes i li preguntarà al usuari si accepta o no.
     public void opcio1() {
         int buycoins;
         double preutotal;
@@ -163,7 +171,7 @@ public class ExtreureDades {
 
         }
     }
-
+    //Mètode que mostra al usuari quantes monedes té i tot seguit mostra un menú amb totes les pokéballs que hi ha disponibles. Tot seguit comprova que l’opció triada per l’usuari sigui correcte i li pregunta quantes unitats vol. Si el usuari s’ho pot permetre, el inventari de l’usuari serà actualitzat.
     public void opcio2(Menu menu) {
         char op, lletra;
         int unitats;
@@ -209,7 +217,7 @@ public class ExtreureDades {
         }
 
     }
-
+    //Mètode que serveix per afegir el número de pokéballs comprades pel usuari a la quantitat del seu corresponent tipus.
     public boolean actualitzaInventari(int unitats, char op){
         boolean error;
         if (unitats * pokeballs[op-97].getPrice() > user.getMonedes()) {
@@ -223,7 +231,7 @@ public class ExtreureDades {
         }
         return error;
     }
-
+    //Mètode que mostra per pantalla de quantes pokéballs de cada tipus disposa el usuari.
     public void opcio3(){
         //dubte amb printar el nom de la pokeball ja que no és clavat al enunciat (majúscules, accents..) diferent al json
         System.out.println("Inventari: ");
@@ -235,7 +243,7 @@ public class ExtreureDades {
         System.out.println(" ");
 
     }
-
+    //Mètode s’utilitza per capturar un pokémon salvatge i un mític si es dona la ocasió. En primer lloc mira si queden pokéballs disponibles. Tot seguit demanarà al usuari quin pokémon vol capturar i comprovarà que aquest no sigui llegendari ni mític. Tot seguit, si no hi ha hagut errors, es procedirà a capturar el pokémon. Si es capturà es comprovarà si s’ha completat una recerca especial, es a dir, si a d’aparèixer un pokémon mític.
     public void opcio4(){
         sc.nextLine();
         boolean trobat = false, mitic = false, llegendary= false;
@@ -349,6 +357,7 @@ public class ExtreureDades {
          }
       }
     }
+    //Mètode que comprova si s’ha d’aparèixer un pokémon mític quan s’ha capturat un pokémon, tan salvatge com llegendari.
     public int apareixerMitic(){
         int q=0, questcompleta=-1;
         boolean mitic=true;
@@ -375,7 +384,7 @@ public class ExtreureDades {
         }
         return questcompleta;
     }
-
+    //Mètode que comprova si la pokéball triada per el usuari per capturar el pokémon existeix.
     public boolean existeixPokeball(String nompokeball){
         boolean trobat = false;
         for(int i = 0; i < pokeballs.length; i++){
@@ -385,6 +394,7 @@ public class ExtreureDades {
         }
         return trobat;
     }
+    //Mètode que retorna la posició de l’array en que es troba la pokéball triada per el usuari.
     public int cercaPokeball(String nompokeball){
         int posiciopokeball = 0;
         for(int i = 0; i < pokeballs.length; i++){
@@ -394,6 +404,7 @@ public class ExtreureDades {
         }
         return posiciopokeball;
     }
+    //Mètode que retorna la posició del array de pokémons en la que es troba el pokémon que vol capturar l’usuari.
     public int cercaPokemon(String nompokemon){
         int posiciopokemon = 0;
         for(int i = 0; i < pokemons.length; i++){
@@ -403,7 +414,7 @@ public class ExtreureDades {
         }
         return posiciopokemon;
     }
-
+    //Mètode que mostra per pantalla si hi ha hagut algun error alhora de buscar el pokémon. Si es llegendari, mític o no existeix.
     public void controlErrorsop4(boolean trobat, boolean llegendary, boolean mitic){
         if (trobat && mitic){
             System.out.println(" ");
@@ -421,7 +432,7 @@ public class ExtreureDades {
             System.out.println(" ");
         }
     }
-
+    //Mètode que comprova si la cadena introduïda es numèrica o no.
     private static boolean isNumeric(String cadena){
         try {
             Integer.parseInt(cadena);
@@ -430,7 +441,7 @@ public class ExtreureDades {
             return false;
         }
     }
-
+    //Mètode que fa que l’usuari introdueixi les seves coordenades i et busca el gimnàs més proper a la teva posició. Tot seguit, si les coordenades s’han introduït correctament, es procedeix a capturar un pokémon llegendari. Si aquest es capturat es tornarà a comprovar si s’ha completat una especial request.
     public void opcio5(){
         String pokeballname;
         double dminima=-1;
@@ -523,7 +534,7 @@ public class ExtreureDades {
         }
 
     }
-
+    //Mètode que mostrarà per pantalla totes les special request que estan en curs. Es recorrerà tot el array de pokémons i es mirarà el estat de les quests de tots els pokémons mítics.
     public void opcio6(){
         int z=0, t=0, q=0, primer=0;
         System.out.println("Recerques Especials:\n");
@@ -552,16 +563,14 @@ public class ExtreureDades {
             }
         }
     }
-
+    //Mètode que recorrerà tot el array de pokémons i tota la llista de pokémons capturats. Posteriorment generarà un fitxer html que mostrarà el total de pokémons capturats i cada pokémon capturat quantes vegades a estat capturat.
     public void opcio7(){
         html.getPokemons(pokemons);
         html.getPokemonsCapturats(user.getPokemonsCapturats());
         html.fitxerCapturats(user.pokemonsCapturats());
 
     }
-
-
-
+    //Mètode que demanarà al usuari que introdueixi un pokémon, i si aquest existeix generarà un fitxer html amb informació detallada sobre aquest.
     public void opcio8(){
         int pokeid=0, posiciopoke=-1;
         boolean trobat=false;
@@ -594,7 +603,7 @@ public class ExtreureDades {
 
         }
     }
-
+    //Mètode pertanyent a la opció 6 que controla si una quest en concret s’ha de printar per pantalla o no. Degut a que si aquesta esta en curs o no. Si una missió de una quest esta completa, es mostraran les altres missions.
     public boolean printarRecerca(Pokemon[] pokemons, User user, Recerca r){
         int z=0, q=0, t=0;
         boolean printar=false;
@@ -618,7 +627,7 @@ public class ExtreureDades {
         }
         return printar;
     }
-
+    //Mètode que retorna el array amb la informació dels pokémons llegendaris i mítics
     public JsonArray getLegend() {
         return legend;
     }
