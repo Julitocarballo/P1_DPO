@@ -325,6 +325,7 @@ public class ExtreureDades {
                              System.out.println("\nQueden " + user.getNumPokeballs() + " Pokéballs i " + captura.getIntents() + "/5 intents. Quin tipus de Pokéball vol fer servir?");
                              do {
                                  pokeballname = sc.nextLine();
+                                 pokeballname = pokeballname.toLowerCase();
                                  if (!existeixPokeball(pokeballname)) {
                                      System.out.println("Aquest tipus no existeix. Quin tipus de Pokéball vol fer servir?");
                                  }
