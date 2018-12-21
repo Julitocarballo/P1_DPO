@@ -36,7 +36,7 @@ public class Html {
                 if (repetit != 0) {
                     escritura.println("<table border = \"0\">");
                     escritura.println("<tr>");
-                    escritura.println("<td><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"/td>");
+                    escritura.println("<td><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"Text per si no podem carregar la imatge i per lectors de pantalles\"/td>");
                     escritura.print("<td><b><font style=\"text-transform: capitalize;\">"+pokemons[i].getName()+"</font></b> x "+repetit+"</td>");
                     escritura.println("</tr>");
                     escritura.println("</table>");

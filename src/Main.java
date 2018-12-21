@@ -7,6 +7,13 @@ import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+/**
+ * Classe procediment principal de la pràctica.
+ *
+ * @author Juli Carballo i Arnaud Arenz
+ * @version 1.0
+ * @since 1.0
+ */
 
 public final class Main {
 
