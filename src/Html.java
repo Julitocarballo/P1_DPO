@@ -55,7 +55,7 @@ public class Html {
     }
     public void fitxerDetalls(Pokemon pokemons){
         try{
-            FileWriter filewriter = new FileWriter("capturats.html");
+            FileWriter filewriter = new FileWriter("detalls.html");
             PrintWriter escritura = new PrintWriter(filewriter);
 
             escritura.println("<!doctype html>");

@@ -17,11 +17,4 @@ public class Gym {
         return location;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 }

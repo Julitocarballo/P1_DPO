@@ -16,7 +16,4 @@ public class Legendary extends Pokemon {
         return gym;
     }
 
-    public void setGym(Gym gym) {
-        this.gym = gym;
-    }
 }

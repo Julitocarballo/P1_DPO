@@ -34,10 +34,6 @@ public class ExtreureDades {
         this.legend = llegirjson.extreureArray();
     }
 
-    public Pokeball getPokeball(int i){
-        return pokeballs[i];
-    }
-
     public void setPokeballs(){
         this.pokeballs = llegirjson.getPokeball();
     }
@@ -63,17 +59,11 @@ public class ExtreureDades {
         return  r;
     }
 
-
-//TODO CAMBIAR ID -1 PER I
     public void afegirLlegendari(int i, int id){
         pokemons[id - 1] = llegirjson.getLlegendari(id, i, pokemons[id - 1], legend);
     }
     public void afegirMitic(int i, int id){
         pokemons[id - 1] = llegirjson.getMitic(id, i, pokemons[id - 1], legend);
-    }
-
-    public Pokemon[] getPokemons() {
-        return pokemons;
     }
 
 
