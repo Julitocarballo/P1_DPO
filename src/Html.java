@@ -34,8 +34,12 @@ public class Html {
             for(int i = 0; i< pokemons.length;i++) {
                 int repetit = retornapokeRepetits(pokemons[i], pokemonsCapturats);
                 if (repetit != 0) {
-                    escritura.println("<p><b><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"\n\talt=\"No s'ha pogut trobar cap foto\"/><font style=\"text-transform: capitalize;\">"+pokemons[i].getName()+"</font></b> x "+repetit+"</p>");
-
+                    escritura.println("<table border = \"0\">");
+                    escritura.println("<tr>");
+                    escritura.println("<td><img src= \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pokemons[i].getId()+".png\"/td>");
+                    escritura.print("<td><b><font style=\"text-transform: capitalize;\">"+pokemons[i].getName()+"</font></b> x "+repetit+"</td>");
+                    escritura.println("</tr>");
+                    escritura.println("</table>");
                 }
             }
 
