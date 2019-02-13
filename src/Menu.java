@@ -76,7 +76,7 @@ public class Menu {
             lletra++;
         }
         System.out.println(" ");
-        System.out.println("    e) Sortir sense comprar");
+        System.out.println("    " + lletra + ") Sortir sense comprar");
         System.out.println(" ");
         System.out.println("Esculli una opció:");
         return lletra;

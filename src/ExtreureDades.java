@@ -182,11 +182,7 @@ public class ExtreureDades {
         System.out.println(" ");
         lletra = menu.mostraMenu2(pokeballs);
         op = sc.next().charAt(0);
-        if(Character.isLetter(lletra)){
-            if(Character.isUpperCase(lletra)){
-                lletra = Character.toLowerCase(lletra);
-            }
-        }
+
         if(Character.isLetter(op)){
             if(Character.isUpperCase(op)){
                 op = Character.toLowerCase(op);
@@ -246,7 +242,7 @@ public class ExtreureDades {
     //Mètode s’utilitza per capturar un pokémon salvatge i un mític si es dona la ocasió. En primer lloc mira si queden pokéballs disponibles. Tot seguit demanarà al usuari quin pokémon vol capturar i comprovarà que aquest no sigui llegendari ni mític. Tot seguit, si no hi ha hagut errors, es procedirà a capturar el pokémon. Si es capturà es comprovarà si s’ha completat una recerca especial, es a dir, si a d’aparèixer un pokémon mític.
     public void opcio4(){
         sc.nextLine();
-        boolean trobat = false, mitic = false, llegendary= false;
+        boolean trobat = false, mitic = false, llegendary= false, capturat=false;
         String pokename, pokeballname;
         int pokeid = 0, posiciopoke = 0;
 
@@ -316,6 +312,7 @@ public class ExtreureDades {
                      if (captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
                          System.out.println("El Pokémon " + pokemons[posiciopoke].getName() + " ha estat capturat!");
                          System.out.println(" ");
+                         capturat = true;
                          user.afegirPokemonCapturat(pokemons[posiciopoke]);
                          pokeid = apareixerMitic();
                          if(pokeid != -1){
@@ -347,7 +344,7 @@ public class ExtreureDades {
                          System.out.println("El " + pokemons[posiciopoke].getName() + " ha escapat...");
                          System.out.println(" ");
                      }
-                 }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0 && !captura.capturaPokeSalvatge(pokemons[cercaPokemon(pokename)].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate()));
+                 }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0 && !capturat);
                  if(user.getNumPokeballs() == 0) {
                      System.out.println("No queden Pokeballs...");
                      System.out.println(" ");
@@ -443,6 +440,7 @@ public class ExtreureDades {
     }
     //Mètode que fa que l’usuari introdueixi les seves coordenades i et busca el gimnàs més proper a la teva posició. Tot seguit, si les coordenades s’han introduït correctament, es procedeix a capturar un pokémon llegendari. Si aquest es capturat es tornarà a comprovar si s’ha completat una especial request.
     public void opcio5(){
+        boolean capturat=false;
         String pokeballname;
         double dminima=-1;
         int j=0, pokeid=0;
@@ -451,7 +449,7 @@ public class ExtreureDades {
         if(latitud_actual<=-90 || latitud_actual>=90){
             System.out.println("Error, latitud incorrecte (-90,90)");
         }else {
-            System.out.println("Longitud_actual");
+            System.out.println("Longitud actual?");
             double longitud_actual = sc.nextDouble();
             sc.nextLine();
             if(longitud_actual<=-180 || longitud_actual>=180) {
@@ -492,6 +490,7 @@ public class ExtreureDades {
                             if (captura.capturaPokeLegendary(pokemons[j].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate())) {
                                 System.out.println("El Pokémon " + pokemons[j].getName() + " ha estat capturat!");
                                 System.out.println(" ");
+                                capturat=true;
                                 user.afegirPokemonCapturat(pokemons[j]);
                                 pokeid = apareixerMitic();
                                 if(pokeid != -1){
@@ -522,7 +521,7 @@ public class ExtreureDades {
                                 System.out.println("El " + pokemons[j].getName() + " ha escapat...");
                                 System.out.println(" ");
                             }
-                        }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0 && !captura.capturaPokeLegendary(pokemons[j].getCapture_rate(), pokeballs[cercaPokeball(pokeballname)].getCapture_rate()));
+                        }while(user.getNumPokeballs() > 0 && captura.getIntents() > 0 && !capturat);
                         if(user.getNumPokeballs() == 0) {
                             System.out.println("No queden Pokeballs...");
                             System.out.println(" ");
@@ -605,7 +604,7 @@ public class ExtreureDades {
     }
     //Mètode pertanyent a la opció 6 que controla si una quest en concret s’ha de printar per pantalla o no. Degut a que si aquesta esta en curs o no. Si una missió de una quest esta completa, es mostraran les altres missions.
     public boolean printarRecerca(Pokemon[] pokemons, User user, Recerca r){
-        int z=0, q=0, t=0;
+        int z=0, q=0, t=0, trues=0;
         boolean printar=false;
         for(int j=0; j<r.getQuests().size();j++){
             z=0;
@@ -622,8 +621,14 @@ public class ExtreureDades {
             if(printar==false){
                 if((q*100)/r.getQuests().get(j).getQuantity()>0 && (q*100)/r.getQuests().get(j).getQuantity()<=100){
                     printar=true;
+                    if((q*100)/r.getQuests().get(j).getQuantity()==100) {
+                        trues += 1;
+                    }
                 }
             }
+        }
+        if(r.getQuests().size()==trues){
+            printar=false;
         }
         return printar;
     }

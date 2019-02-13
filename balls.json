@@ -1,5 +1,10 @@
 [
 {
+    "name":"fuckuball",
+    "capture_rate": 69,
+    "price": 1
+},
+{
     "name":"pokeball",
     "capture_rate": 5,
     "price": 50

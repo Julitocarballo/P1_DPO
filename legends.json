@@ -280,16 +280,8 @@
         "name": "Meteor Destiny",
         "quests": [
         {
-            "target": 337,
+            "target": 150,
             "quantity": 1
-        },
-        {
-            "target": 338,
-            "quantity": 2
-        },
-        {
-            "target": 351,
-            "quantity": 3
         }
         ]
     }
